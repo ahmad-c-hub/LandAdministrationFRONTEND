@@ -15,7 +15,7 @@ const ViewOwnerById = () => {
     }
 
     try {
-      const response = await axios.get(`http://localhost:8080/land-owner/${ownerId}`);
+      const response = await axios.get(`http://landadministration.railway.internal/land-owner/${ownerId}`);
       setLandOwner(response.data);
       setErrorMsg('');
     } catch (error) {

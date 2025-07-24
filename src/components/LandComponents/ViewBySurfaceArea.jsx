@@ -19,7 +19,7 @@ const ViewBySurfaceArea = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:8080/land/surface-area-paged/${min}/${max}/${sortedBy}`,
+        `http://landadministration.railway.internal/land/surface-area-paged/${min}/${max}/${sortedBy}`,
         {
           params: {
             page: pageToLoad,

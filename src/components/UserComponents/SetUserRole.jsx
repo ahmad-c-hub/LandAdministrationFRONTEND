@@ -14,7 +14,7 @@ const SetUserRole = () => {
     setError("");
 
     try {
-      const res = await axios.put(`http://localhost:8080/user/set-role/${userId}/${role}`);
+      const res = await axios.put(`http://landadministration.railway.internal/user/set-role/${userId}/${role}`);
       setMessage(res.data);
     } catch (err) {
       setError("Failed to update role. Please make sure the user ID and role are valid.");

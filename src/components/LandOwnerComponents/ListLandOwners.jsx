@@ -9,7 +9,7 @@ const ListLandOwners = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/land-owner/owners?page=${page}&size=10`)
+      .get(`http://landadministration.railway.internal/land-owner/owners?page=${page}&size=10`)
       .then((response) => {
         setLandOwners(response.data.content);
         setTotalPages(response.data.totalPages);

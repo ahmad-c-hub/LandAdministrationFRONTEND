@@ -6,7 +6,7 @@ const DisplayLandOwner = () => {
   const [landOwner, setLandOwner] = useState({});
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
-  const REST_API_BASE_URL = `http://localhost:8080/land-owner/${id}`;
+  const REST_API_BASE_URL = `http://landadministration.railway.internal/land-owner/${id}`;
 
   useEffect(() => {
     axios.get(REST_API_BASE_URL)

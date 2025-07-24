@@ -19,7 +19,7 @@ const ViewLandById = () => {
 
   const fetchLand = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/land/get/${landId}`);
+      const response = await axios.get(`http://landadministration.railway.internal/land/get/${landId}`);
       setLand(response.data);
       setError("");
       setEditMessage("");
@@ -34,7 +34,7 @@ const ViewLandById = () => {
 
   const handleEditSubmit = async () => {
     try {
-      await axios.put(`http://localhost:8080/land/update-usage-type/${land.id}/${land.usageType}`, land);
+      await axios.put(`http://landadministration.railway.internal/land/update-usage-type/${land.id}/${land.usageType}`, land);
       setShowEditModal(false);
       setEditMessage(`✅ Land with ID ${land.id} updated successfully.`);
     } catch (err) {
@@ -51,7 +51,7 @@ const ViewLandById = () => {
 
   const deleteLand = async () => {
     try {
-      await axios.delete(`http://localhost:8080/land/delete/${land.id}`);
+      await axios.delete(`http://landadministration.railway.internal/land/delete/${land.id}`);
       setDeletionMessage(`✅ Land with ID ${land.id} deleted successfully.`);
       setLand(null);
       setShowConfirmModal(false);
@@ -64,7 +64,7 @@ const ViewLandById = () => {
 
   const handleTransferOwnership = async () => {
     try {
-      await axios.post(`http://localhost:8080/land-owner/${land.id}/assign-owner/${newOwnerId}`);
+      await axios.post(`http://landadministration.railway.internal/land-owner/${land.id}/assign-owner/${newOwnerId}`);
 
       setTransferMessage(`✅ Ownership of land ${land.id} transferred to owner ${newOwnerId}.`);
       setShowTransferModal(false);

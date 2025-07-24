@@ -13,7 +13,7 @@ const UserById = () => {
       return;
     }
 
-    const URL = `http://localhost:8080/user/get-user/${userId}`;
+    const URL = `http://landadministration.railway.internal/user/get-user/${userId}`;
     axios
       .get(URL)
       .then((response) => {

@@ -14,7 +14,7 @@ const SearchLands = () => {
 
   const fetchLands = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/land/search", {
+      const response = await axios.get("http://landadministration.railway.internal/land/search", {
         params: {
           location: location || undefined,
           usageType: usageType || undefined,
