@@ -11,7 +11,7 @@ const ViewUserLogsById = () => {
 
   const fetchLogs = async (pageNum = 0) => {
     try {
-      const response = await axios.get(`http://landadministration-production.up.railway.app/user-log/records/${userId}?page=${pageNum}&size=10`);
+      const response = await axios.get(`https://landadministration-production.up.railway.app/user-log/records/${userId}?page=${pageNum}&size=10`);
       setLogs(response.data.content);
       setTotalPages(response.data.totalPages);
       setPage(pageNum);

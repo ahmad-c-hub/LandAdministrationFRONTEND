@@ -11,7 +11,7 @@ const DeleteLand = () => {
 
   const fetchLand = async () => {
     try {
-      const res = await axios.get(`http://landadministration-production.up.railway.app/land/get/${landId}`);
+      const res = await axios.get(`https://landadministration-production.up.railway.app/land/get/${landId}`);
       setLand(res.data);
       setShowModal(true);
       setError("");
@@ -24,7 +24,7 @@ const DeleteLand = () => {
 
   const handleDelete = async () => {
     try {
-      const res = await axios.delete(`http://landadministration-production.up.railway.app/land/delete/${landId}`);
+      const res = await axios.delete(`https://landadministration-production.up.railway.app/land/delete/${landId}`);
       setMessage(`✅ Land with ID ${res.data.id} was deleted successfully.`);
       setLand(null);
       setLandId("");

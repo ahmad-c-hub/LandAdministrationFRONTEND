@@ -19,13 +19,13 @@ const Dashboard = () => {
       try {
         const [landRes, ownerRes, unassignedRes, farmingRes, agricultureRes, residentialRes, ownershipRes] =
           await Promise.all([
-            axios.get("http://landadministration-production.up.railway.app/land/records/id"),
-            axios.get("http://landadministration-production.up.railway.app/land-owner/owners"),
-            axios.get("http://landadministration-production.up.railway.app/land/get-unassigned-lands"),
-            axios.get("http://landadministration-production.up.railway.app/land/usage-type/Farming/id"),
-            axios.get("http://landadministration-production.up.railway.app/land/usage-type/Agriculture/id"),
-            axios.get("http://landadministration-production.up.railway.app/land/usage-type/Residential/id"),
-            axios.get("http://landadministration-production.up.railway.app/ownership-history/records")
+            axios.get("https://landadministration-production.up.railway.app/land/records/id"),
+            axios.get("https://landadministration-production.up.railway.app/land-owner/owners"),
+            axios.get("https://landadministration-production.up.railway.app/land/get-unassigned-lands"),
+            axios.get("https://landadministration-production.up.railway.app/land/usage-type/Farming/id"),
+            axios.get("https://landadministration-production.up.railway.app/land/usage-type/Agriculture/id"),
+            axios.get("https://landadministration-production.up.railway.app/land/usage-type/Residential/id"),
+            axios.get("https://landadministration-production.up.railway.app/ownership-history/records")
           ]);
 
         setStats({
@@ -47,7 +47,7 @@ const Dashboard = () => {
 
     useEffect(() =>{
         axios
-        .get(`http://landadministration-production.up.railway.app/user/get-role`)
+        .get(`https://landadministration-production.up.railway.app/user/get-role`)
         .then((response) => {
           setRole(response.data);
           setErrorMsg("");

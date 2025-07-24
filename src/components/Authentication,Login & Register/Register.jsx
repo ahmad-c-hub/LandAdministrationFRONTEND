@@ -30,7 +30,7 @@ const Register = () => {
     }
 
     try {
-      await axios.post("http://landadministration-production.up.railway.app/user/register", {
+      await axios.post("https://landadministration-production.up.railway.app/user/register", {
         username: formData.username,
         password: formData.password,
       });

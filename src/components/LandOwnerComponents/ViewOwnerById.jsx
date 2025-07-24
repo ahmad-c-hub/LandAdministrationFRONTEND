@@ -15,7 +15,7 @@ const ViewOwnerById = () => {
     }
 
     try {
-      const response = await axios.get(`http://landadministration-production.up.railway.app/land-owner/${ownerId}`);
+      const response = await axios.get(`https://landadministration-production.up.railway.app/land-owner/${ownerId}`);
       setLandOwner(response.data);
       setErrorMsg('');
     } catch (error) {
