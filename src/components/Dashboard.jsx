@@ -24,7 +24,7 @@ const Dashboard = () => {
             axios.get("https://landadministration-production.up.railway.app/land-owner/owners"),
             axios.get("https://landadministration-production.up.railway.app/land/get-unassigned-lands"),
             axios.get("https://landadministration-production.up.railway.app/land/usage-type/Farming/id"),
-            axios.get("https://landadministration-production.up.railway.app/land/usage-type/Agriculture/id"),
+            axios.get("https://landadministration-production.up.railway.app/land/usage-type/Agricultural/id"),
             axios.get("https://landadministration-production.up.railway.app/land/usage-type/Residential/id"),
             axios.get("https://landadministration-production.up.railway.app/ownership-history/records")
           ]);
