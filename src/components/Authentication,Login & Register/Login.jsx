@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 const Login = ({ onLogin }) => {
@@ -24,15 +24,15 @@ const Login = ({ onLogin }) => {
       const response = await axios.post("https://landadministration-production.up.railway.app/user/login", formData);
       const token = response.data;
       if (token === "fail") {
-      setError("Invalid username or password.");
-    } else {
-      localStorage.setItem("token", token);
-      onLogin();
-      navigate("/");
+        setError("Invalid username or password.");
+      } else {
+        localStorage.setItem("token", token);
+        onLogin();
+        navigate("/");
+      }
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
     }
-  } catch (err) {
-    setError("Something went wrong. Please try again.");
-  }
   };
 
   return (
@@ -88,34 +88,34 @@ const Login = ({ onLogin }) => {
             Login
           </button>
         </form>
-        <button
-            className="btn w-100 d-flex align-items-center justify-content-center gap-2"
-            onClick={() => {
-              window.location.href = "https://landadministration-production.up.railway.app/oauth2/authorization/google";
-            }}
-            style={{
-              backgroundColor: "#ffffff",
-              marginTop:"20px",
-              color: "#000000",
-              border: "1px solid #ddd",
-              boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
-              fontWeight: "500",
-            }}
-          >
-            <img
-              src="https://developers.google.com/identity/images/g-logo.png"
-              alt="Google logo"
-              style={{ width: "20px", height: "20px" }}
-            />
-            Continue with Google
-          </button>
 
+        <button
+          className="btn w-100 d-flex align-items-center justify-content-center gap-2"
+          onClick={() => {
+            window.location.href = "https://landadministration-production.up.railway.app/oauth2/authorization/google";
+          }}
+          style={{
+            backgroundColor: "#ffffff",
+            marginTop: "20px",
+            color: "#000000",
+            border: "1px solid #ddd",
+            boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
+            fontWeight: "500",
+          }}
+        >
+          <img
+            src="https://developers.google.com/identity/images/g-logo.png"
+            alt="Google logo"
+            style={{ width: "20px", height: "20px" }}
+          />
+          Continue with Google
+        </button>
 
         <p className="mt-3 text-center">
           Don’t have an account?{" "}
-          <a href="/sign-up" style={{ textDecoration: "underline" }}>
+          <Link to="/sign-up" style={{ textDecoration: "underline" }}>
             Sign Up
-          </a>
+          </Link>
         </p>
       </div>
     </div>
