@@ -96,9 +96,9 @@ const QuickLink = ({ title, url, color, classBased}) => (
     <div className="card shadow border-0 text-center" style={{ borderRadius: "1rem" }}>
       <div className="card-body">
         <h5 className="card-title">{title}</h5>
-        <a href={url} className="btn text-white mt-3" style={{ backgroundColor: color }}>
+        <Link to={url} className="btn text-white mt-3" style={{ backgroundColor: color }}>
           Go to {title}
-        </a>
+        </Link>
       </div>
     </div>
   </div>

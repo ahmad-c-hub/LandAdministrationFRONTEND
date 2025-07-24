@@ -30,9 +30,9 @@ const Header = () => {
   return (
     <header>
       <nav className="navbar navbar-dark bg-dark px-3">
-        <a className="navbar-brand" href="/">
+        <Link to="/"className="navbar-brand">
           Land Administration
-        </a>
+        </Link>
         {token ? (
           <div className="d-flex gap-3 align-items-center">
             <Link to="/dashboard" className="btn btn-outline-light btn-sm">
