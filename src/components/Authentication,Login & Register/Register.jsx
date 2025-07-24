@@ -112,9 +112,9 @@ const Register = () => {
 
         <p className="mt-3 text-center">
           Already have an account?{" "}
-          <a href="/login" style={{ textDecoration: "underline" }}>
+          <Link to="/login" style={{ textDecoration: "underline" }}>
             Login
-          </a>
+          </Link>
         </p>
       </div>
     </div>
