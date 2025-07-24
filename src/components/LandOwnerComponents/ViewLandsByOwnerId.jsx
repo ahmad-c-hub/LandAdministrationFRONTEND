@@ -50,7 +50,7 @@ const ViewLandsByOwnerId = () => {
     try {
       setLoading(true);
       setErrorMsg('');
-      const response = await axios.get(`http://landadministration.railway.internal/land-owner/lands/${ownerId}`);
+      const response = await axios.get(`http://landadministration-production.up.railway.app/land-owner/lands/${ownerId}`);
       const fetchedLands = Array.isArray(response.data?.content) ? response.data.content : [];
 
       setLands(fetchedLands);

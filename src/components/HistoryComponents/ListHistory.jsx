@@ -6,7 +6,7 @@ const ListHistory = () => {
     const [history, setHistory] = useState([]);
     useEffect(() => {
     axios
-      .get(`http://landadministration.railway.internal/ownership-history/recordss`)
+      .get(`http://landadministration-production.up.railway.app/ownership-history/recordss`)
       .then((response) => {
         console.log(response.data);
         setHistory(response.data);

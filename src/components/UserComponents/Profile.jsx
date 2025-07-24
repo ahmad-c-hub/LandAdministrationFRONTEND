@@ -18,7 +18,7 @@ const Profile = () => {
 
   const fetchLogs = async (pageNumber) => {
     try {
-      const res = await axios.get(`http://landadministration.railway.internal/user-log/current-user?page=${pageNumber}&size=10`);
+      const res = await axios.get(`http://landadministration-production.up.railway.app/user-log/current-user?page=${pageNumber}&size=10`);
       setLogs(res.data.content);
       setTotalPages(res.data.totalPages);
       if (res.data.content.length > 0) {
@@ -44,7 +44,7 @@ const Profile = () => {
       return;
     }
     try {
-      await axios.put("http://landadministration.railway.internal/user/update-current-user", {
+      await axios.put("http://landadministration-production.up.railway.app/user/update-current-user", {
         username: newUsername.trim(),
       });
       setSuccess("✅ Username changed successfully. Redirecting to login...");
@@ -72,7 +72,7 @@ const Profile = () => {
       return;
     }
     try {
-      await axios.put("http://landadministration.railway.internal/user/change-password", {
+      await axios.put("http://landadministration-production.up.railway.app/user/change-password", {
         oldPassword,
         newPassword,
       });

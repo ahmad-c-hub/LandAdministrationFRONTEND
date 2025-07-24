@@ -17,7 +17,7 @@ const LandList = () => {
   const fetchLands = async (page, sort) => {
     try {
       const res = await axios.get(
-        `http://landadministration.railway.internal/land/records-paged/${sort}?page=${page}&size=${size}`
+        `http://landadministration-production.up.railway.app/land/records-paged/${sort}?page=${page}&size=${size}`
       );
       setLands(res.data.content);
       setTotalPages(res.data.totalPages);

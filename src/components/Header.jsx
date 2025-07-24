@@ -13,7 +13,7 @@ const Header = () => {
 
   const handleLogoutClick = async () => {
     try {
-      await fetch("http://landadministration.railway.internal/user/logout", {
+      await fetch("http://landadministration-production.up.railway.app/user/logout", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

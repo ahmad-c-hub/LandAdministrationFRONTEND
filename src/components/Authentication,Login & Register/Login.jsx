@@ -21,7 +21,7 @@ const Login = ({ onLogin }) => {
     setError("");
 
     try {
-      const response = await axios.post("http://landadministration.railway.internal/user/login", formData);
+      const response = await axios.post("http://landadministration-production.up.railway.app/user/login", formData);
       const token = response.data;
       if (token === "fail") {
       setError("Invalid username or password.");
@@ -91,7 +91,7 @@ const Login = ({ onLogin }) => {
         <button
             className="btn w-100 d-flex align-items-center justify-content-center gap-2"
             onClick={() => {
-              window.location.href = "http://landadministration.railway.internal/oauth2/authorization/google";
+              window.location.href = "http://landadministration-production.up.railway.app/oauth2/authorization/google";
             }}
             style={{
               backgroundColor: "#ffffff",

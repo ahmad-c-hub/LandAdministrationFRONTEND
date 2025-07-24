@@ -10,7 +10,7 @@ const ListUsers = () => {
 
   const fetchUsers = (pageNumber) => {
     axios
-      .get(`http://landadministration.railway.internal/user/get-users?page=${pageNumber}&size=10`)
+      .get(`http://landadministration-production.up.railway.app/user/get-users?page=${pageNumber}&size=10`)
       .then((response) => {
         setUsers(response.data.content);
         setTotalPages(response.data.totalPages);
