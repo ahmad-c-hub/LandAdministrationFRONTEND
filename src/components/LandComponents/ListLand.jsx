@@ -79,7 +79,7 @@ const LandList = () => {
       {lands.length === 0 ? (
         <p>No land records available.</p>
       ) : (
-        <table className="table table-bordered mt-3">
+        <Table striped bordered hover responsive>
           <thead className="table-dark">
             <tr>
               <th>ID</th>
@@ -130,7 +130,7 @@ const LandList = () => {
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       )}
 
       <div className="d-flex justify-content-center align-items-center gap-3 mt-3">

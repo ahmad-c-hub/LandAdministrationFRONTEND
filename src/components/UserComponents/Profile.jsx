@@ -156,7 +156,7 @@ const Profile = () => {
 
       <div className="card p-3 shadow-sm">
         <h5>User Logs</h5>
-        <table className="table table-bordered mt-3">
+        <Table striped bordered hover responsive>
           <thead className="table-light">
             <tr>
               <th>Action</th>
@@ -173,7 +173,7 @@ const Profile = () => {
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
 
         <div className="d-flex justify-content-between">
           <button

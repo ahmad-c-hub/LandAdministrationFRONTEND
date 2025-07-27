@@ -46,20 +46,15 @@ const ManageUsers = () => {
           <Card.Text className="mb-3">
             Get a list of all registered users and their information.
           </Card.Text>
-          <Button
-            variant="success"
-            onClick={() => navigate('/all-users')}
-          >
+          <div className="d-flex flex-wrap gap-2">
+          <button className="btn bt
+          n-success" onClick={() => navigate("/all-users")}>
             👥 View All Users
-          </Button>
-
-          <Button
-            style={{marginLeft:"20px"}}
-            variant="success"
-            onClick={() => navigate('/get-user')}
-          >
-            👥 View User By Id
-          </Button>
+          </button>
+          <button className="btn btn-success" onClick={() => navigate("/get-user")}>
+            🆔 View User by ID
+          </button>
+        </div>
            
         </Card.Body>
       </Card>
