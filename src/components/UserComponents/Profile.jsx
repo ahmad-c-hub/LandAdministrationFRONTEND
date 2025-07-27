@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Table } from "react-bootstrap";
 
 const Profile = () => {
   const [logs, setLogs] = useState([]);

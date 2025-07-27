@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { MapContainer, TileLayer, Polygon } from "react-leaflet";
+import { Table } from "react-bootstrap";
 import "leaflet/dist/leaflet.css";
 
 const LandList = () => {
