@@ -33,6 +33,7 @@ import ManageOwners from "./LandOwnerComponents/ManageOwners";
 import ViewLandsByOwnerId from "./LandOwnerComponents/ViewLandsByOwnerId";
 import ViewOwnerById from "./LandOwnerComponents/ViewOwnerById";
 import { Table } from "react-bootstrap";
+import AddLandOwner from "./LandOwnerComponents/AddLandOwner";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -77,6 +78,7 @@ function App() {
             </RequireAuth>
           }
         />
+
 
         <Route
           path="/manage-users"
@@ -253,6 +255,15 @@ function App() {
             </RequireAuth>
           }
         
+        />
+
+        <Route
+          path="/owners/add"
+          element={
+            <RequireAuth>
+              <AddLandOwner />
+            </RequireAuth>
+          }
         />
 
         

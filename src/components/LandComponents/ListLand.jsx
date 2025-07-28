@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { MapContainer, TileLayer, Polygon } from "react-leaflet";
 import { Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 
 const LandList = () => {
@@ -102,12 +103,12 @@ const LandList = () => {
                 <td>{land.usageType}</td>
                 <td>
                   {land.currentOwner ? (
-                    <a
-                      href={`/display-land-owner?id=${land.currentOwner.id}`}
+                    <Link
+                      to={`/display-land-owner?id=${land.currentOwner.id}`}
                       className="text-decoration-none"
                     >
                       👤 {land.currentOwner.fullName}
-                    </a>
+                    </Link>
                   ) : (
                     "N/A"
                   )}

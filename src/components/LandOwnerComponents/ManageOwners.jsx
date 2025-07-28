@@ -32,6 +32,13 @@ const ManageOwners = () => {
           🌐 View Lands by Owner ID
         </Button>
       </div>
+
+      <div className="p-4 rounded mb-4" style={{ backgroundColor: "#FEF9C3" }}>
+        <p>Add an owner by entering their personal data</p>
+        <Button variant="warning" className="text-white" onClick={() => navigate("/owners/add")}>
+          🧑 Add Land Owner
+        </Button>
+      </div>
     </div>
   );
 };
