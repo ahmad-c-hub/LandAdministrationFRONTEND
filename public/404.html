@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="0; URL=/LandAdministrationFRONTEND/" />
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+      const pathname = window.location.pathname;
+      const search = window.location.search;
+      const hash = window.location.hash;
+
+      const redirectPath = pathname.replace('/LandAdministrationFRONTEND', '') + search + hash;
+      window.location.replace('/LandAdministrationFRONTEND/index.html' + '?redirect=' + encodeURIComponent(redirectPath));
+    </script>
   </head>
-  <body>
-    <p>Redirecting...</p>
-  </body>
+  <body></body>
 </html>
