@@ -28,15 +28,17 @@ const ManageUsers = () => {
           <Card.Text className="mb-3">
             View a detailed log of all user actions (e.g., logins, updates).
           </Card.Text>
-          <Button
-            variant="warning"
-            onClick={() => navigate('/user-logs')}
-          >
-            📜 View User Logs
-          </Button>
-          <Button  style={{marginLeft:"20px"}} variant="warning" onClick={() => navigate("/view-logs-by-id")}>
-  🔍 View Logs by User ID
-</Button>
+          <div className='d-flex flex-wrap gap-2'>
+              <Button
+                variant="warning"
+                onClick={() => navigate('/user-logs')}
+              >
+                📜 View User Logs
+              </Button>
+              <Button  style={{marginLeft:"20px"}} variant="warning" onClick={() => navigate("/view-logs-by-id")}>
+                🔍 View Logs by User ID
+              </Button>
+          </div>
 
         </Card.Body>
       </Card>
