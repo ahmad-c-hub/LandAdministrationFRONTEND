@@ -35,7 +35,7 @@ const ManageUsers = () => {
               >
                 📜 View User Logs
               </Button>
-              <Button  style={{marginLeft:"20px"}} variant="warning" onClick={() => navigate("/view-logs-by-id")}>
+              <Button  variant="warning" onClick={() => navigate("/view-logs-by-id")}>
                 🔍 View Logs by User ID
               </Button>
           </div>
@@ -49,7 +49,7 @@ const ManageUsers = () => {
             Get a list of all registered users and their information.
           </Card.Text>
           <div className="d-flex flex-wrap gap-2">
-            <button className="btn btn-primary" onClick={() => navigate("/all-users")}>
+            <button className="btn btn-success" onClick={() => navigate("/all-users")}>
               👥 View All Users
             </button>
             <button className="btn btn-success" onClick={() => navigate("/get-user")}>
