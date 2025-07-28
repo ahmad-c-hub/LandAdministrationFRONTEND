@@ -34,7 +34,7 @@ const AddLandOwner = () => {
       });
     } catch (err) {
       setSuccessMessage("");
-      setErrorMessage(err.response?.data?.message || "❌ Failed to add land owner.");
+      setErrorMessage(err.response?.data?.error || "❌ Failed to add land owner.");
     }
   };
 
