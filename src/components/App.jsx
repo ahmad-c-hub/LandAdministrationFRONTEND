@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route, useNavigate, useEffect,  Link } from "react-router-dom";
+import { Routes, Route, useNavigate,  Link } from "react-router-dom";
 import ListLand from "./LandComponents/ListLand";
 import DisplayLandOwner from "./LandOwnerComponents/DisplayLandOwner";
 import Header from "./Header";
