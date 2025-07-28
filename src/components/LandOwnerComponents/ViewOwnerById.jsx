@@ -114,7 +114,7 @@ const ViewOwnerById = () => {
                 </tr>
                 <tr>
                   <th className="table-dark">📞 Phone</th>
-                  <td>{landOwner.phoneNb}</td>
+                  <td>{landOwner.phoneNumber}</td>
                 </tr>
                 <tr>
                   <th className="table-dark">📧 Email</th>
