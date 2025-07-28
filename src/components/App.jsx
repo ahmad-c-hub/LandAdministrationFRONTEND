@@ -35,21 +35,8 @@ import ViewOwnerById from "./LandOwnerComponents/ViewOwnerById";
 import { Table } from "react-bootstrap";
 import AddLandOwner from "./LandOwnerComponents/AddLandOwner";
 import { useEffect } from "react";
+import GitHubPagesFix from "./Authentication,Login & Register/GitHubPagesFix";
 
-function RedirectHandler() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const redirect = params.get("redirect");
-    if (redirect && location.pathname === "/") {
-      navigate(redirect);
-    }
-  }, []);
-
-  return null;
-}
 
 
 function App() {
@@ -62,8 +49,8 @@ function App() {
   return (
     <div className="app-wrapper d-flex flex-column min-vh-100">
       <Header />
-      <RedirectHandler/>
       <Routes>
+        <Route path="/index.html" element={<GitHubPagesFix />} />
         <Route path='/' element={<Home/>}/>
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/sign-up" element={<Register/>} />
