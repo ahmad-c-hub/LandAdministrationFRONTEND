@@ -79,15 +79,15 @@ const ViewLandById = () => {
   const confirmTransfer = async () => {
     try {
       await axios.post(`https://landadministration-production.up.railway.app/land-owner/${land.id}/assign-owner/${newOwnerId}`);
-      setTransferMessage(`✅ Ownership of land ${land.id} transferred to ${newOwnerDetails.fullName}.`);
       setShowTransferModal(false);
+      setTransferMessage(`✅ Ownership of land ${land.id} transferred to ${newOwnerDetails.fullName}.`);
       setNewOwnerId("");
       setNewOwnerDetails(null);
       fetchLand();
     } catch (err) {
       console.error(err);
-      setTransferMessage("❌ Failed to transfer ownership.");
       setShowTransferModal(false);
+      setTransferMessage("❌ Failed to transfer ownership.");
     }
   };
 
