@@ -11,7 +11,7 @@ const ViewOwnerById = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const [editData, setEditData] = useState({ phoneNumber: '', emailAddress: '' });
+  const [editData, setEditData] = useState({ phoneNb: '', emailAddress: '' });
   const [editError, setEditError] = useState('');
   const [editSuccess, setEditSuccess] = useState('');
 
@@ -34,25 +34,32 @@ const ViewOwnerById = () => {
   };
 
   const handleEditChange = (e) => {
-    setEditData({ ...editData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setEditData({ ...editData, [name]: value });
   };
 
   const handleEditSubmit = async () => {
-    if (!editData.phoneNumber && !editData.emailAddress) {
+    if (!editData.phoneNb && !editData.emailAddress) {
       setEditError('Please provide at least one field to update.');
       return;
     }
 
+    const updatedOwner = {
+      ...landOwner,
+      phoneNb: editData.phoneNb || landOwner.phoneNb,
+      emailAddress: editData.emailAddress || landOwner.emailAddress,
+    };
+
     try {
       await axios.put(
         `https://landadministration-production.up.railway.app/land-owner/update-owner?id=${landOwner.id}`,
-        editData
+        updatedOwner
       );
       setEditSuccess('✅ Owner updated successfully.');
       setEditError('');
       setShowEditModal(false);
       fetchOwner(); // Refresh data
-      setEditData({ phoneNumber: '', emailAddress: '' });
+      setEditData({ phoneNb: '', emailAddress: '' });
     } catch (error) {
       setEditError(error.response?.data?.message || '❌ Failed to update owner.');
     }
@@ -107,7 +114,7 @@ const ViewOwnerById = () => {
                 </tr>
                 <tr>
                   <th className="table-dark">📞 Phone</th>
-                  <td>{landOwner.phoneNumber}</td>
+                  <td>{landOwner.phoneNb}</td>
                 </tr>
                 <tr>
                   <th className="table-dark">📧 Email</th>
@@ -136,7 +143,7 @@ const ViewOwnerById = () => {
       <Modal show={showEditModal} onHide={() => {
         setShowEditModal(false);
         setEditError('');
-        setEditData({ phoneNumber: '', emailAddress: '' });
+        setEditData({ phoneNb: '', emailAddress: '' });
       }} centered>
         <Modal.Header closeButton>
           <Modal.Title>Edit Owner</Modal.Title>
@@ -147,9 +154,9 @@ const ViewOwnerById = () => {
             <Form.Label>📞 Phone Number</Form.Label>
             <Form.Control
               type="text"
-              name="phoneNumber"
+              name="phoneNb"
               placeholder="Enter new phone number"
-              value={editData.phoneNumber}
+              value={editData.phoneNb}
               onChange={handleEditChange}
             />
           </Form.Group>
@@ -186,9 +193,6 @@ const ViewOwnerById = () => {
         </Modal.Footer>
       </Modal>
 
-      <footer className="text-center text-white py-2" style={{ backgroundColor: 'black', marginTop: '60px' }}>
-        All rights reserved 2025
-      </footer>
     </div>
   );
 };
