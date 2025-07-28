@@ -1,21 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="utf-8" />
-    <title>Redirecting...</title>
-    <script type="text/javascript">
-      (function () {
-        const expectedBase = "/LandAdministrationFRONTEND";
-        const currentPath = window.location.pathname;
-
-        // Avoid redirecting again once you're already inside the correct base
-        if (!currentPath.startsWith(expectedBase)) {
-          const newPath =
-            expectedBase + currentPath + window.location.search + window.location.hash;
-          window.location.replace(newPath);
-        }
-      })();
-    </script>
+    <meta http-equiv="refresh" content="0; URL=/LandAdministrationFRONTEND/" />
   </head>
   <body>
     <p>Redirecting...</p>
