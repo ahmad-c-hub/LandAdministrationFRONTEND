@@ -103,7 +103,7 @@ const LandList = () => {
                 <td>
                   {land.currentOwner ? (
                     <a
-                      href={`/display-land-owner?id=${land.currentOwner.id}`}
+                      href={`/display-land-owner`}
                       className="text-decoration-none"
                     >
                       👤 {land.currentOwner.fullName}
