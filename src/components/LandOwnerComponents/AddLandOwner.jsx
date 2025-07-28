@@ -42,7 +42,7 @@ const AddLandOwner = () => {
   };
 
   if (formData.firstName === "" || formData.lastName === "" || formData.emailAddress === "" || formData.dateOfBirth === "" || formData.phoneNb === "") {
-      setError("Please fill in all required fields.");
+      setErrorMessage("Please fill in all required fields.");
       return;
     }
 
