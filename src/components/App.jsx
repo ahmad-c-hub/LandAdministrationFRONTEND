@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route, useNavigate, Link } from "react-router-dom";
+import { Routes, Route, useNavigate, useEffect,  Link } from "react-router-dom";
 import ListLand from "./LandComponents/ListLand";
 import DisplayLandOwner from "./LandOwnerComponents/DisplayLandOwner";
 import Header from "./Header";
@@ -35,7 +35,6 @@ import ViewOwnerById from "./LandOwnerComponents/ViewOwnerById";
 import { Table } from "react-bootstrap";
 import AddLandOwner from "./LandOwnerComponents/AddLandOwner";
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 
 function RedirectHandler() {
   const navigate = useNavigate();
