@@ -34,7 +34,10 @@ const AddLandOwner = () => {
       });
     } catch (err) {
       setSuccessMessage("");
-      setErrorMessage(err.response?.error || "❌ Failed to add land owner.");
+      const msg = err?.response?.data;
+      if (typeof msg === "string") setError(msg);
+      else if (msg?.error) setError(msg.error);
+      else setError("An unknown error occurred.");
     }
   };
 

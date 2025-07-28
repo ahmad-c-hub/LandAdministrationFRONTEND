@@ -4,8 +4,14 @@
     <meta charset="utf-8">
     <title>Redirecting...</title>
     <script type="text/javascript">
-      var redirectTo = window.location.pathname + window.location.search + window.location.hash;
-      window.location.replace(redirectTo);
+      var currentPath = window.location.pathname;
+      var expectedBase = "/LandAdministrationFRONTEND";
+
+      // If the current path doesn't already include the base, redirect once
+      if (!currentPath.startsWith(expectedBase)) {
+        var redirectTo = expectedBase + currentPath + window.location.search + window.location.hash;
+        window.location.replace(redirectTo);
+      }
     </script>
   </head>
   <body></body>
