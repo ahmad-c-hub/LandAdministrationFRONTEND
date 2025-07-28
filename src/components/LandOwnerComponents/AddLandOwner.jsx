@@ -19,6 +19,10 @@ const AddLandOwner = () => {
 
   const handleSubmit = async () => {
     try {
+      if (formData.firstName === "" || formData.lastName === "" || formData.emailAddress === "" || formData.dateOfBirth === "" || formData.phoneNb === "") {
+      setErrorMessage("Please fill in all required fields.");
+      return;
+    }
       const res = await axios.post(
         "https://landadministration-production.up.railway.app/land-owner/add",
         formData
@@ -41,10 +45,6 @@ const AddLandOwner = () => {
     }
   };
 
-  if (formData.firstName === "" || formData.lastName === "" || formData.emailAddress === "" || formData.dateOfBirth === "" || formData.phoneNb === "") {
-      setErrorMessage("Please fill in all required fields.");
-      return;
-    }
 
   return (
     <div className="container mt-5">
