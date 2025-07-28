@@ -35,9 +35,9 @@ const AddLandOwner = () => {
     } catch (err) {
       setSuccessMessage("");
       const msg = err?.response?.data;
-      if (typeof msg === "string") setError(msg);
-      else if (msg?.error) setError(msg.error);
-      else setError("An unknown error occurred.");
+      if (typeof msg === "string") setErrorMessage(msg);
+      else if (msg?.error) setErrorMessage(msg.error);
+      else setErrorMessage("An unknown error occurred.");
     }
   };
 
