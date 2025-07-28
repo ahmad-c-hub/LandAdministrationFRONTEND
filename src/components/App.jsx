@@ -33,8 +33,7 @@ import ManageOwners from "./LandOwnerComponents/ManageOwners";
 import ViewLandsByOwnerId from "./LandOwnerComponents/ViewLandsByOwnerId";
 import ViewOwnerById from "./LandOwnerComponents/ViewOwnerById";
 import { Table } from "react-bootstrap";
-import AddLandOwner from "./LandOwnerComponents/AddLandOwner";
-import 
+import AddLandOwner from "./LandOwnerComponents/AddLandOwn
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
