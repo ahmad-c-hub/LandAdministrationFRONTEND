@@ -5,15 +5,16 @@ const OAuth2Redirect = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = window.location.hash.substring(1);
-  if (token) {
-    localStorage.setItem("token", token);
-    navigate("/dashboard");
-  } else {
-    console.error("Token not found in hash");
-    navigate("/login");
-  }
-}, []);
+    const hash = window.location.hash;
+    const token = hash.startsWith("#") ? hash.substring(1) : null;
+
+    if (token) {
+      localStorage.setItem("token", token);
+      navigate("/"); // or to dashboard or profile
+    } else {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   return null;
 };
