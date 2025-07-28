@@ -117,11 +117,12 @@ const ViewLandsByOwnerId = () => {
           <Card.Body>
             <Card.Title>👤 Owner Details</Card.Title>
             <ul className="list-group list-group-flush">
+              <li className="list-group-item"><strong>Name:</strong> {ownerInfo.fullName}</li>
               <li className="list-group-item"><strong>ID:</strong> {ownerInfo.id}</li>
-              <li className="list-group-item"><strong>Name:</strong> {ownerInfo.firstName} {ownerInfo.lastName}</li>
-              <li className="list-group-item"><strong>Email:</strong> {ownerInfo.email}</li>
-              <li className="list-group-item"><strong>Phone:</strong> {ownerInfo.phoneNb}</li>
-              <li className="list-group-item"><strong>Date of Birth:</strong> {ownerInfo.dateOfBirth}</li>
+              <li className="list-group-item"><strong>Phone:</strong> {ownerInfo.phoneNumber}</li>
+              <li className="list-group-item"><strong>Email:</strong> {ownerInfo.emailAddress}</li>
+              <li className="list-group-item"><strong>Number of Lands:</strong> {ownerInfo.numberOfLands}</li>
+              <li className="list-group-item"><strong>Age:</strong> {ownerInfo.age}</li>
             </ul>
           </Card.Body>
         </Card>
