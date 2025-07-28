@@ -1,22 +1,23 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-const OAuth2Redirect = () => {
+const OAuth2RedirectHandler = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const hash = window.location.hash;
-    const token = hash.startsWith("#") ? hash.substring(1) : null;
+    const params = new URLSearchParams(location.search);
+    const token = params.get("token");
 
     if (token) {
       localStorage.setItem("token", token);
-      navigate("/"); // or to dashboard or profile
+      navigate("/dashboard");
     } else {
       navigate("/login");
     }
-  }, [navigate]);
+  }, []);
 
-  return null;
+  return <p>Redirecting...</p>;
 };
 
-export default OAuth2Redirect;
+export default OAuth2RedirectHandler;
