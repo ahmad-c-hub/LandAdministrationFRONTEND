@@ -11,6 +11,8 @@ const ViewLandById = () => {
   const [deletionMessage, setDeletionMessage] = useState("");
   const [transferMessage, setTransferMessage] = useState("");
   const [newOwnerId, setNewOwnerId] = useState("");
+  const [newOwnerDetails, setNewOwnerDetails] = useState(null);
+  const [newOwnerError, setNewOwnerError] = useState("");
 
   const [showEditModal, setShowEditModal] = useState(false);
   const [showTransferModal, setShowTransferModal] = useState(false);
@@ -64,12 +66,24 @@ const ViewLandById = () => {
 
   const handleTransferOwnership = async () => {
     try {
-      await axios.post(`https://landadministration-production.up.railway.app/land-owner/${land.id}/assign-owner/${newOwnerId}`);
+      const response = await axios.get(`https://landadministration-production.up.railway.app/land-owner/${newOwnerId}`);
+      setNewOwnerDetails(response.data);
+      setNewOwnerError("");
+    } catch (err) {
+      console.error(err);
+      setNewOwnerDetails(null);
+      setNewOwnerError("❌ No owner found with this ID.");
+    }
+  };
 
-      setTransferMessage(`✅ Ownership of land ${land.id} transferred to owner ${newOwnerId}.`);
+  const confirmTransfer = async () => {
+    try {
+      await axios.post(`https://landadministration-production.up.railway.app/land-owner/${land.id}/assign-owner/${newOwnerId}`);
+      setTransferMessage(`✅ Ownership of land ${land.id} transferred to ${newOwnerDetails.fullName}.`);
       setShowTransferModal(false);
-      fetchLand();
       setNewOwnerId("");
+      setNewOwnerDetails(null);
+      fetchLand();
     } catch (err) {
       console.error(err);
       setTransferMessage("❌ Failed to transfer ownership.");
@@ -81,7 +95,6 @@ const ViewLandById = () => {
     <div className="container mt-5">
       <h2 className="text-center mb-4">View Land by ID</h2>
 
-      {/* Input for ID */}
       <div className="row g-3 mb-4">
         <div className="col-md-4">
           <input
@@ -99,13 +112,11 @@ const ViewLandById = () => {
         </div>
       </div>
 
-      {/* Messages */}
       {error && <div className="alert alert-danger">{error}</div>}
       {deletionMessage && <div className="alert alert-success text-center">{deletionMessage}</div>}
       {editMessage && <div className="alert alert-success text-center">{editMessage}</div>}
       {transferMessage && <div className="alert alert-success text-center">{transferMessage}</div>}
 
-      {/* Land Info */}
       {land && (
         <div className="card p-4 shadow-sm mb-4">
           <h3>Land Info</h3>
@@ -175,7 +186,12 @@ const ViewLandById = () => {
       </Modal>
 
       {/* Transfer Ownership Modal */}
-      <Modal show={showTransferModal} onHide={() => setShowTransferModal(false)} centered>
+      <Modal show={showTransferModal} onHide={() => {
+        setShowTransferModal(false);
+        setNewOwnerId("");
+        setNewOwnerDetails(null);
+        setNewOwnerError("");
+      }} centered>
         <Modal.Header closeButton>
           <Modal.Title>Transfer Ownership</Modal.Title>
         </Modal.Header>
@@ -186,14 +202,41 @@ const ViewLandById = () => {
               type="number"
               className="form-control"
               value={newOwnerId}
-              onChange={(e) => setNewOwnerId(e.target.value)}
+              onChange={(e) => {
+                setNewOwnerId(e.target.value);
+                setNewOwnerDetails(null);
+                setNewOwnerError("");
+              }}
               placeholder="Enter new owner ID"
             />
           </div>
+
+          {newOwnerError && (
+            <div className="alert alert-danger">{newOwnerError}</div>
+          )}
+
+          {newOwnerDetails && (
+            <div className="alert alert-warning">
+              Are you sure you want to transfer to:
+              <br />
+              <strong>{newOwnerDetails.fullName}</strong><br />
+              📧 {newOwnerDetails.emailAddress}<br />
+              📞 {newOwnerDetails.phoneNumber}
+            </div>
+          )}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowTransferModal(false)}>Cancel</Button>
-          <Button variant="success" onClick={handleTransferOwnership}>Save Changes</Button>
+          {!newOwnerDetails ? (
+            <>
+              <Button variant="secondary" onClick={() => setShowTransferModal(false)}>Cancel</Button>
+              <Button variant="primary" onClick={handleTransferOwnership}>Next</Button>
+            </>
+          ) : (
+            <>
+              <Button variant="secondary" onClick={() => setShowTransferModal(false)}>Cancel</Button>
+              <Button variant="success" onClick={confirmTransfer}>✅ Confirm Transfer</Button>
+            </>
+          )}
         </Modal.Footer>
       </Modal>
     </div>
