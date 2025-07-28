@@ -4,8 +4,8 @@ import axios from 'axios';
 
 const DisplayLandOwner = () => {
   const [landOwner, setLandOwner] = useState({});
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get("id");
+  const query = new URLSearchParams(useLocation().search);
+  const id = query.get("id");
   const REST_API_BASE_URL = `https://landadministration-production.up.railway.app/land-owner/${id}`;
 
   useEffect(() => {

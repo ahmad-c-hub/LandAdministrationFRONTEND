@@ -69,7 +69,7 @@ function App() {
             </RequireAuth>
           }
         />
-        <Route
+        <Route 
           path="/display-land-owner"
           element={
             <RequireAuth>
