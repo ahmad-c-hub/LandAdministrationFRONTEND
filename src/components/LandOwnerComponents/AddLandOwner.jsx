@@ -41,6 +41,11 @@ const AddLandOwner = () => {
     }
   };
 
+  if (formData.firstName === "" || formData.lastName === "" || formData.emailAddress === "" || formData.dateOfBirth === "" || formData.phoneNb === "") {
+      setError("Please fill in all required fields.");
+      return;
+    }
+
   return (
     <div className="container mt-5">
       <h2 className="text-center mb-4">🧑 Add New Land Owner</h2>

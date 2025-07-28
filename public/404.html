@@ -1,18 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Redirecting...</title>
     <script type="text/javascript">
-      var currentPath = window.location.pathname;
-      var expectedBase = "/LandAdministrationFRONTEND";
+      (function () {
+        const expectedBase = "/LandAdministrationFRONTEND";
+        const currentPath = window.location.pathname;
 
-      // If the current path doesn't already include the base, redirect once
-      if (!currentPath.startsWith(expectedBase)) {
-        var redirectTo = expectedBase + currentPath + window.location.search + window.location.hash;
-        window.location.replace(redirectTo);
-      }
+        // Avoid redirecting again once you're already inside the correct base
+        if (!currentPath.startsWith(expectedBase)) {
+          const newPath =
+            expectedBase + currentPath + window.location.search + window.location.hash;
+          window.location.replace(newPath);
+        }
+      })();
     </script>
   </head>
-  <body></body>
+  <body>
+    <p>Redirecting...</p>
+  </body>
 </html>
