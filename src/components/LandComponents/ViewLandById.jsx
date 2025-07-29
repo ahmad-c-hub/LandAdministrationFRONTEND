@@ -47,6 +47,11 @@ const ViewLandById = () => {
   };
 
   const handleChange = (e) => {
+    if(e.target.value===land.usageType){
+      setShowEditModal(false);
+      setEditMessage("Cannot update to same Usage Type.");
+      return;
+    }
     const { name, value } = e.target;
     setLand((prev) => ({ ...prev, [name]: value }));
   };
