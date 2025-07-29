@@ -20,7 +20,7 @@ const ManageHistory = () => {
 
       <div className="p-4 mb-3 rounded" style={{ backgroundColor: "#fff3cd" }}>
         <p className="mb-3">Look up all land history owned by a specific owner using their ID.</p>
-        <button className="btn btn-warning text-dark">👤 View History by Owner ID</button>
+        <button className="btn btn-warning text-dark" onClick={() => navigate("/history/records-by-owner-id")}>👤 View History by Owner ID</button>
       </div>
 
       <div className="p-4 mb-3 rounded" style={{ backgroundColor: "#f8d7da" }}>

@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Table, Button, Alert, Form } from 'react-bootstrap';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
-const HistoryByLandId = () => {
-  const [landId, setLandId] = useState('');
+const HistoryByOwnerId = () => {
+  const [ownerId, setOwnerId] = useState('');
   const [history, setHistory] = useState([]);
   const [errorMsg, setErrorMsg] = useState('');
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const size = 7;
+  const size = 5;
 
   const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
@@ -20,12 +19,12 @@ const HistoryByLandId = () => {
   };
 
   const fetchHistory = () => {
-    if (!landId) {
-      setErrorMsg("Please enter a Land ID.");
+    if (!ownerId) {
+      setErrorMsg("Please enter an Owner ID.");
       return;
     }
 
-    axios.get(`https://landadministration-production.up.railway.app/ownership-history/land?page=${page}&size=${size}&id=${landId}`)
+    axios.get(`https://landadministration-production.up.railway.app/ownership-history/owner?page=${page}&size=${size}&id=${ownerId}`)
       .then(response => {
         setHistory(response.data.content);
         setTotalPages(response.data.totalPages);
@@ -51,21 +50,21 @@ const HistoryByLandId = () => {
   };
 
   useEffect(() => {
-    if (landId) {
+    if (ownerId) {
       fetchHistory();
     }
   }, [page]);
 
   return (
     <Container className="mt-4">
-      <h2 className="text-center mb-4">🏞️ History by Land ID</h2>
+      <h2 className="text-center mb-4">👤 History by Owner ID</h2>
 
       <Form className="mb-3 d-flex gap-2">
         <Form.Control
           type="number"
-          placeholder="Enter Land ID"
-          value={landId}
-          onChange={(e) => setLandId(e.target.value)}
+          placeholder="Enter Owner ID"
+          value={ownerId}
+          onChange={(e) => setOwnerId(e.target.value)}
         />
         <Button onClick={() => { setPage(0); fetchHistory(); }}>
           Search
@@ -95,11 +94,7 @@ const HistoryByLandId = () => {
                   <td>{record.land.id}</td>
                   <td>{record.land.location}</td>
                   <td>{record.land.locationCoordinates}</td>
-                  <td>
-                    <Link to={`/display-land-owner?id=${record.landOwner.id}`} className="text-decoration-none">
-                      👤 {record.landOwner.fullName}
-                    </Link>
-                  </td>
+                  <td>{record.landOwner.fullName}</td>
                   <td>{record.landOwner.id}</td>
                   <td>{formatDate(record.ownershipStart)}</td>
                   <td>{formatDate(record.ownershipEnd)}</td>
@@ -124,4 +119,4 @@ const HistoryByLandId = () => {
   );
 };
 
-export default HistoryByLandId;
+export default HistoryByOwnerId;

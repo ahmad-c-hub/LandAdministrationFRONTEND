@@ -38,6 +38,7 @@ import { useEffect } from "react";
 import GitHubPagesFix from "./Authentication,Login & Register/GitHubPagesFix";
 import ManageHistory from "./HistoryComponents/ManageHistory";
 import HistoryByLandId from "./HistoryComponents/HistoryByLandId";
+import HistoryByOwnerId from "./HistoryComponents/HistoryByOwnerId";
 
 
 
@@ -290,11 +291,21 @@ function App() {
             </RequireAuth>
           }
         />
+
         <Route
           path="/history/records-by-land-id"
           element={
             <RequireAuth>
               <HistoryByLandId/>
+            </RequireAuth>
+          }
+        />
+
+        <Route
+          path="/history/records-by-owner-id"
+          element={
+            <RequireAuth>
+              <HistoryByOwnerId/>
             </RequireAuth>
           }
         />

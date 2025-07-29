@@ -9,6 +9,14 @@ const ListHistory = () => {
   const [totalPages, setTotalPages] = useState(0);
   const size = 7;
 
+  const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
+    return new Intl.DateTimeFormat("en-US", {
+      dateStyle: "medium",
+      timeStyle: "short"
+    }).format(new Date(dateString));
+  };
+
   useEffect(() => {
     fetchHistory();
   }, [page]);
@@ -17,7 +25,6 @@ const ListHistory = () => {
     axios
       .get(`https://landadministration-production.up.railway.app/ownership-history/recordss?page=${page}&size=${size}`)
       .then((response) => {
-        console.log(response.data);
         setHistory(response.data.content);
         setTotalPages(response.data.totalPages);
       })
@@ -53,25 +60,33 @@ const ListHistory = () => {
             <tr key={`${record.land.id}_${record.landOwner.id}_${record.createdAt}`}>
               <td>{record.land.id}</td>
               <td>{record.land.location}</td>
-              <td>{record.land.locationCoordinates}</td>
+              <td>
+                <a
+                  href={`https://www.google.com/maps?q=${record.land.locationCoordinates}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-sm btn-outline-success"
+                >
+                  {record.land.locationCoordinates}
+                </a>
+              </td>
               <td>
                 <Link
-                      to={`/display-land-owner?id=${record.landOwner.id}`}
-                      className="text-decoration-none"
-                    >
-                      👤 {record.landOwner.fullName}
-                    </Link>
+                  to={`/display-land-owner?id=${record.landOwner.id}`}
+                  className="text-decoration-none"
+                >
+                  👤 {record.landOwner.fullName}
+                </Link>
               </td>
               <td>{record.landOwner.id}</td>
-              <td>{record.ownershipStart}</td>
-              <td>{record.ownershipEnd || "N/A"}</td>
-              <td>{record.createdAt}</td>
+              <td>{formatDate(record.ownershipStart)}</td>
+              <td>{formatDate(record.ownershipEnd)}</td>
+              <td>{formatDate(record.createdAt)}</td>
             </tr>
           ))}
         </tbody>
       </Table>
 
-      {/* Pagination Buttons */}
       <div className="d-flex justify-content-center mt-3 gap-3">
         <Button variant="secondary" disabled={page === 0} onClick={handlePrevious}>
           ⬅ Previous
