@@ -77,6 +77,10 @@ const ViewLandById = () => {
   const handleTransferOwnership = async () => {
     try {
       const response = await axios.get(`https://landadministration-production.up.railway.app/land-owner/${newOwnerId}`);
+      if(newOwnerId===land.currentOwner.id){
+        setNewOwnerError("Cannot transfer ownership to the current owner.");
+        return;
+      }
       setNewOwnerDetails(response.data);
       setNewOwnerError("");
     } catch (err) {
@@ -104,8 +108,8 @@ const ViewLandById = () => {
   const unassignOwner = async () => {
     try {
       const response = await axios.post(`https://landadministration-production.up.railway.app/land/unassign-owner/${land.id}`);
-      setTransferMessage(`✅ Owner unassigned successfully from land ID ${land.id}.`);
       setShowUnassignConfirmModal(false);
+      setTransferMessage(`✅ Owner unassigned successfully from land ID ${land.id}.`);
       setNewOwnerId("");
       setNewOwnerDetails(null);
       fetchLand();
@@ -248,6 +252,7 @@ const ViewLandById = () => {
           <Button variant="warning" onClick={unassignOwner}>Unassign</Button>
         </Modal.Footer>
       </Modal>
+
 
       {/* Transfer Ownership Modal */}
       <Modal show={showTransferModal} onHide={() => {
