@@ -6,7 +6,7 @@ const ListHistory = () => {
   const [history, setHistory] = useState([]);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const size = 5;
+  const size = 7;
 
   useEffect(() => {
     fetchHistory();

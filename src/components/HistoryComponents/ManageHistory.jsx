@@ -15,7 +15,7 @@ const ManageHistory = () => {
 
       <div className="p-4 mb-3 rounded" style={{ backgroundColor: "#d1ecf1" }}>
         <p className="mb-3">Look up history records by entering a specific land ID.</p>
-        <button className="btn btn-primary">🏞️ View History by Land ID</button>
+        <button className="btn btn-primary" onClick={() => navigate("/history/records-by-land-id")}>🏞️ View History by Land ID</button>
       </div>
 
       <div className="p-4 mb-3 rounded" style={{ backgroundColor: "#fff3cd" }}>

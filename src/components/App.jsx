@@ -37,6 +37,7 @@ import AddLandOwner from "./LandOwnerComponents/AddLandOwner";
 import { useEffect } from "react";
 import GitHubPagesFix from "./Authentication,Login & Register/GitHubPagesFix";
 import ManageHistory from "./HistoryComponents/ManageHistory";
+import HistoryByLandId from "./HistoryComponents/HistoryByLandId";
 
 
 
@@ -289,6 +290,16 @@ function App() {
             </RequireAuth>
           }
         />
+        <Route
+          path="/history/records-by-land-id"
+          element={
+            <RequireAuth>
+              <HistoryByLandId/>
+            </RequireAuth>
+          }
+        />
+
+        
 
         
 
