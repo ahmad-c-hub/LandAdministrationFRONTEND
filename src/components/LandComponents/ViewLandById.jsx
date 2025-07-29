@@ -149,16 +149,18 @@ const ViewLandById = () => {
         </Modal.Header>
         <Modal.Body>
           {land && (
-            <div className="mb-3">
-              <label className="form-label">Usage Type</label>
-              <input
-                type="text"
-                className="form-control"
-                name="usageType"
-                value={land.usageType}
-                onChange={handleChange}
-              />
-            </div>
+            <div className="form-group mb-4">
+        <label>🏡 Usage Type</label>
+        <select
+          className="form-control"
+          value={land.usageType}
+          onChange={(e) => handleChange}
+        >
+          <option value="Residential">Residential</option>
+          <option value="Farming">Farming</option>
+          <option value="Agricultural">Agricultural</option>
+        </select>
+      </div>
           )}
         </Modal.Body>
         <Modal.Footer>
