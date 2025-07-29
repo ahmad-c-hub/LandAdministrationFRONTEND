@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const navigate = useNavigate();
 
 const ManageHistory = () => {
+    const navigate = useNavigate();
   return (
     <div className="container mt-5">
       <h2 className="text-center mb-4">📜 Manage Ownership History</h2>
