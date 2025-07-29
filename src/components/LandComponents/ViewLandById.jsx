@@ -13,7 +13,6 @@ const ViewLandById = () => {
   const [newOwnerId, setNewOwnerId] = useState("");
   const [newOwnerDetails, setNewOwnerDetails] = useState(null);
   const [newOwnerError, setNewOwnerError] = useState("");
-  const [usageType, setUsageType] = useState("Residential");
 
   const [showEditModal, setShowEditModal] = useState(false);
   const [showTransferModal, setShowTransferModal] = useState(false);
@@ -150,18 +149,16 @@ const ViewLandById = () => {
         </Modal.Header>
         <Modal.Body>
           {land && (
-            <div className="form-group mb-4">
-        <label>🏡 Usage Type</label>
-        <select
-          className="form-control"
-          value={usageType}
-          onChange={(e) => setUsageType(e.target.value)}
-        >
-          <option value="Residential">Residential</option>
-          <option value="Farming">Farming</option>
-          <option value="Agricultural">Agricultural</option>
-        </select>
-      </div>
+            <div className="mb-3">
+              <label className="form-label">Usage Type</label>
+              <input
+                type="text"
+                className="form-control"
+                name="usageType"
+                value={land.usageType}
+                onChange={handleChange}
+              />
+            </div>
           )}
         </Modal.Body>
         <Modal.Footer>
