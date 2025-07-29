@@ -6,6 +6,7 @@ import { Modal, Button } from "react-bootstrap";
 const ViewLandById = () => {
   const [landId, setLandId] = useState("");
   const [land, setLand] = useState(null);
+  const [originalUsageType, setOriginalUsageType] = useState("");
   const [error, setError] = useState("");
   const [editMessage, setEditMessage] = useState("");
   const [deletionMessage, setDeletionMessage] = useState("");
@@ -23,6 +24,7 @@ const ViewLandById = () => {
     try {
       const response = await axios.get(`https://landadministration-production.up.railway.app/land/get/${landId}`);
       setLand(response.data);
+      setOriginalUsageType(response.data.usageType);
       setError("");
       setEditMessage("");
       setDeletionMessage("");
@@ -39,6 +41,7 @@ const ViewLandById = () => {
       await axios.put(`https://landadministration-production.up.railway.app/land/update-usage-type/${land.id}/${land.usageType}`, land);
       setShowEditModal(false);
       setEditMessage(`✅ Land with ID ${land.id} updated successfully.`);
+      setOriginalUsageType(land.usageType);
     } catch (err) {
       console.error(err);
       setEditMessage("❌ Failed to update land.");
@@ -46,10 +49,10 @@ const ViewLandById = () => {
     }
   };
 
-  const displayEditError = async () => {
+  const displayEditError = () => {
     setShowEditModal(false);
-    setEditMessage("Cannot update to same Usage Type.");
-  }
+    setEditMessage("⚠️ Cannot update to same Usage Type.");
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -156,19 +159,33 @@ const ViewLandById = () => {
           {land && (
             <div className="mb-3">
               <label className="form-label">Usage Type</label>
-              <input
-                type="text"
-                className="form-control"
+              <select
+                className="form-select"
                 name="usageType"
                 value={land.usageType}
                 onChange={handleChange}
-              />
+              >
+                <option value="">Select Usage Type</option>
+                <option value="Farming">Farming</option>
+                <option value="Residential">Residential</option>
+                <option value="Agricultural">Agricultural</option>
+                <option value="Commercial">Commercial</option>
+              </select>
             </div>
           )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowEditModal(false)}>Cancel</Button>
-          <Button variant="success" onClick={land.usageType!==usageType ? handleEditSubmit : displayEditError}>Save Changes</Button>
+          <Button
+            variant="success"
+            onClick={() =>
+              land.usageType !== originalUsageType
+                ? handleEditSubmit()
+                : displayEditError()
+            }
+          >
+            Save Changes
+          </Button>
         </Modal.Footer>
       </Modal>
 
