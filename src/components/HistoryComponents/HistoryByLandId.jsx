@@ -88,7 +88,14 @@ const HistoryByLandId = () => {
                   <td>{record.land.id}</td>
                   <td>{record.land.location}</td>
                   <td>{record.land.locationCoordinates}</td>
-                  <td>{record.landOwner.fullName}</td>
+                  <td>
+                    <Link
+                        to={`/display-land-owner?id=${record.landOwner.id}`}
+                        className="text-decoration-none"
+                        >
+                        👤 {record.landOwner.fullName}
+                        </Link>
+                  </td>
                   <td>{record.landOwner.id}</td>
                   <td>{record.ownershipStart}</td>
                   <td>{record.ownershipEnd || 'N/A'}</td>
