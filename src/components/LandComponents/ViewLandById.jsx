@@ -105,12 +105,14 @@ const ViewLandById = () => {
     try {
       const response = await axios.post(`https://landadministration-production.up.railway.app/land/unassign-owner/${land.id}`);
       setTransferMessage(`✅ Owner unassigned successfully from land ID ${land.id}.`);
-      setLand(response.data); // Refresh UI
       setShowUnassignConfirmModal(false);
+      setNewOwnerId("");
+      setNewOwnerDetails(null);
+      fetchLand();
     } catch (err) {
+      setShowUnassignConfirmModal(false);
       console.error(err);
       setTransferMessage("❌ Failed to unassign owner.");
-      setShowUnassignConfirmModal(false);
     }
   };
 
