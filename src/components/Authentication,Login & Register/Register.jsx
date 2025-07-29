@@ -8,15 +8,17 @@ const Register = () => {
     username: "",
     password: "",
     confirmPassword: "",
+    country: "",
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   };
 
@@ -30,14 +32,20 @@ const Register = () => {
       return;
     }
 
+    if (!formData.country) {
+      setError("Please select a country.");
+      return;
+    }
+
     try {
       await axios.post("https://landadministration-production.up.railway.app/user/register", {
         username: formData.username,
         password: formData.password,
+        country: formData.country,
       });
 
       setSuccess("Signed up successfully. You can now login.");
-      setTimeout(() => navigate("/login"), 2000); // optional delay before redirect
+      setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
       const message =
         err.response?.data?.error || err.response?.data || err.message || "Registration failed.";
@@ -93,6 +101,24 @@ const Register = () => {
               onChange={handleChange}
               required
             />
+          </div>
+
+          <div className="mb-3">
+            <label>Country</label>
+            <select
+              className="form-select"
+              name="country"
+              value={formData.country}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Country</option>
+              <option value="Lebanon">Lebanon</option>
+              <option value="Syria">Syria</option>
+              <option value="United Arab Emirates">United Arab Emirates</option>
+              <option value="Canada">Canada</option>
+              <option value="Saudi Arabia">Saudi Arabia</option>
+            </select>
           </div>
 
           {error && (
