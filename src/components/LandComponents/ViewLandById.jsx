@@ -13,6 +13,7 @@ const ViewLandById = () => {
   const [newOwnerId, setNewOwnerId] = useState("");
   const [newOwnerDetails, setNewOwnerDetails] = useState(null);
   const [newOwnerError, setNewOwnerError] = useState("");
+  const [usageType, setUsageType] = useState("Residential");
 
   const [showEditModal, setShowEditModal] = useState(false);
   const [showTransferModal, setShowTransferModal] = useState(false);
@@ -154,7 +155,7 @@ const ViewLandById = () => {
         <select
           className="form-control"
           value={land.usageType}
-          onChange={(e) => handleChange}
+          onChange={(e) => setUsageType(e.target.value)}
         >
           <option value="Residential">Residential</option>
           <option value="Farming">Farming</option>
