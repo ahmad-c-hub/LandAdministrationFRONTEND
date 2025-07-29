@@ -93,7 +93,16 @@ const HistoryByOwnerId = () => {
                 <tr key={`${record.land.id}_${record.landOwner.id}_${record.createdAt}`}>
                   <td>{record.land.id}</td>
                   <td>{record.land.location}</td>
-                  <td>{record.land.locationCoordinates}</td>
+                  <td>
+                    <a
+                  href={`https://www.google.com/maps?q=${record.land.locationCoordinates}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-sm btn-outline-success"
+                >
+                  {record.land.locationCoordinates}
+                </a>
+                    </td>
                   <td>{record.landOwner.fullName}</td>
                   <td>{record.landOwner.id}</td>
                   <td>{formatDate(record.ownershipStart)}</td>
