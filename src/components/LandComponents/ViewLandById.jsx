@@ -18,6 +18,8 @@ const ViewLandById = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showTransferModal, setShowTransferModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showUnassignConfirmModal, setShowUnassignConfirmModal] = useState(false);
+
   const navigate = useNavigate();
 
   const fetchLand = async () => {
@@ -99,6 +101,19 @@ const ViewLandById = () => {
     }
   };
 
+  const unassignOwner = async () => {
+    try {
+      const response = await axios.post(`https://landadministration-production.up.railway.app/land/unassign-owner/${land.id}`);
+      setTransferMessage(`✅ Owner unassigned successfully from land ID ${land.id}.`);
+      setLand(response.data); // Refresh UI
+      setShowUnassignConfirmModal(false);
+    } catch (err) {
+      console.error(err);
+      setTransferMessage("❌ Failed to unassign owner.");
+      setShowUnassignConfirmModal(false);
+    }
+  };
+
   return (
     <div className="container mt-5">
       <h2 className="text-center mb-4">View Land by ID</h2>
@@ -136,7 +151,7 @@ const ViewLandById = () => {
           <p><strong>Usage Type:</strong> {land.usageType}</p>
           <p><strong>Current Owner:</strong> {land.currentOwner ? land.currentOwner.fullName : "N/A"}</p>
 
-          <div className="mt-4 d-flex gap-3">
+          <div className="mt-4 d-flex flex-wrap gap-3">
             <button className="btn btn-outline-primary" onClick={() => setShowEditModal(true)}>
               📝 Edit Land
             </button>
@@ -145,6 +160,13 @@ const ViewLandById = () => {
             </button>
             <button className="btn btn-outline-secondary" onClick={() => setShowTransferModal(true)}>
               👥➡️ Transfer Ownership
+            </button>
+            <button
+              className="btn btn-outline-warning"
+              onClick={() => setShowUnassignConfirmModal(true)}
+              disabled={!land.currentOwner}
+            >
+              🔓 Unassign Owner
             </button>
           </div>
         </div>
@@ -204,6 +226,24 @@ const ViewLandById = () => {
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowConfirmModal(false)}>Cancel</Button>
           <Button variant="danger" onClick={deleteLand}>Yes, Delete</Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Confirm Unassign Modal */}
+      <Modal show={showUnassignConfirmModal} onHide={() => setShowUnassignConfirmModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Unassign Owner</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to unassign the current owner from this land?
+          <div className="mt-3">
+            <p><strong>ID:</strong> {land?.id}</p>
+            <p><strong>Current Owner:</strong> {land?.currentOwner?.fullName}</p>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowUnassignConfirmModal(false)}>Cancel</Button>
+          <Button variant="warning" onClick={unassignOwner}>Unassign</Button>
         </Modal.Footer>
       </Modal>
 
