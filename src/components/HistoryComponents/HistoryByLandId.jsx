@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Table, Button, Alert, Form } from 'react-bootstrap';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const HistoryByLandId = () => {
   const [landId, setLandId] = useState('');
