@@ -11,6 +11,7 @@ const Dashboard = () => {
     farmingLands: 0,
     agriculturalLands: 0,
     residentialLands: 0,
+    commercialLands: 0
   });
   const [role, setRole] = useState("ROLE_USER");
   const [errorMsg, setErrorMsg] = useState("");
@@ -18,7 +19,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [landRes, ownerRes, unassignedRes, farmingRes, agricultureRes, residentialRes, ownershipRes] =
+        const [landRes, ownerRes, unassignedRes, farmingRes, agricultureRes, residentialRes, commercialRes, ownershipRes] =
           await Promise.all([
             axios.get("https://landadministration-production.up.railway.app/land/records/id"),
             axios.get("https://landadministration-production.up.railway.app/land-owner/owners"),
@@ -26,6 +27,7 @@ const Dashboard = () => {
             axios.get("https://landadministration-production.up.railway.app/land/usage-type/Farming/id"),
             axios.get("https://landadministration-production.up.railway.app/land/usage-type/Agricultural/id"),
             axios.get("https://landadministration-production.up.railway.app/land/usage-type/Residential/id"),
+            axios.get("https://landadministration-production.up.railway.app/land/usage-type/Commercial/id"),
             axios.get("https://landadministration-production.up.railway.app/ownership-history/records")
           ]);
 
@@ -36,6 +38,7 @@ const Dashboard = () => {
           farmingLands: farmingRes.data.length,
           agriculturalLands: agricultureRes.data.length,
           residentialLands: residentialRes.data.length,
+          commercialLands : commercialRes.data.length,
           totalOwnershipHistory: ownershipRes.data
         });
       } catch (err) {
@@ -67,6 +70,7 @@ const Dashboard = () => {
         <StatCard title="Farming Lands" count={stats.farmingLands} gradient="linear-gradient(135deg, #f6d365 0%, #fda085 100%)" />
         <StatCard title="Agricultural Lands" count={stats.agriculturalLands} gradient="linear-gradient(135deg, #c2e9fb 0%, #a1c4fd 100%)" />
         <StatCard title="Residential Lands" count={stats.residentialLands} gradient="linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)" />
+        <StatCard title="Commercial Lands" count={stats.commercialLands} gradient="linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)" />
       </div>
 
       <hr/>
