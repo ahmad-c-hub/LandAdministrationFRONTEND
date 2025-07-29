@@ -79,6 +79,8 @@ const ViewLandById = () => {
     if (land.currentOwner && parseInt(newOwnerId) === land.currentOwner.id) {
       setNewOwnerError("⚠️ Cannot transfer ownership to the current owner.");
       setNewOwnerDetails(null);
+      setNewOwnerId("");
+      setShowTransferModal(false);
       return;
     }
 
