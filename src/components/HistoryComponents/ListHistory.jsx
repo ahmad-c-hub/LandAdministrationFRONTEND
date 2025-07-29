@@ -1,20 +1,38 @@
-import React, {useEffect, useState} from 'react';
-import {Table, Container} from "react-bootstrap"
+import React, { useEffect, useState } from 'react';
+import { Table, Container, Button } from "react-bootstrap";
 import axios from 'axios';
 
 const ListHistory = () => {
-    const [history, setHistory] = useState([]);
-    useEffect(() => {
+  const [history, setHistory] = useState([]);
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const size = 5;
+
+  useEffect(() => {
+    fetchHistory();
+  }, [page]);
+
+  const fetchHistory = () => {
     axios
-      .get(`https://landadministration-production.up.railway.app/ownership-history/recordss`)
+      .get(`https://landadministration-production.up.railway.app/ownership-history/recordss?page=${page}&size=${size}`)
       .then((response) => {
         console.log(response.data);
-        setHistory(response.data);
+        setHistory(response.data.content);
+        setTotalPages(response.data.totalPages);
       })
       .catch((error) => console.error("Error fetching history:", error));
-  }, []);
+  };
+
+  const handlePrevious = () => {
+    if (page > 0) setPage(page - 1);
+  };
+
+  const handleNext = () => {
+    if (page < totalPages - 1) setPage(page + 1);
+  };
+
   return (
-        <Container className="mt-4">
+    <Container className="mt-4">
       <h2 className="mb-4 text-center">Ownership History</h2>
       <Table striped bordered hover responsive>
         <thead>
@@ -31,21 +49,32 @@ const ListHistory = () => {
         </thead>
         <tbody>
           {history.map((record) => (
-            <tr key={`${record.land.id}_${record.landOwner.id}`}>
+            <tr key={`${record.land.id}_${record.landOwner.id}_${record.createdAt}`}>
               <td>{record.land.id}</td>
               <td>{record.land.location}</td>
               <td>{record.land.locationCoordinates}</td>
               <td>{record.landOwner.fullName}</td>
               <td>{record.landOwner.id}</td>
               <td>{record.ownershipStart}</td>
-              <td>{record.ownershipEnd}</td>
+              <td>{record.ownershipEnd || "N/A"}</td>
               <td>{record.createdAt}</td>
             </tr>
           ))}
         </tbody>
       </Table>
-    </Container>
-  )
-}
 
-export default ListHistory
+      {/* Pagination Buttons */}
+      <div className="d-flex justify-content-center mt-3 gap-3">
+        <Button variant="secondary" disabled={page === 0} onClick={handlePrevious}>
+          ⬅ Previous
+        </Button>
+        <span className="align-self-center">Page {page + 1} of {totalPages}</span>
+        <Button variant="secondary" disabled={page === totalPages - 1} onClick={handleNext}>
+          Next ➡
+        </Button>
+      </div>
+    </Container>
+  );
+};
+
+export default ListHistory;

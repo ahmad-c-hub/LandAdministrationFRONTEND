@@ -36,6 +36,7 @@ import { Table } from "react-bootstrap";
 import AddLandOwner from "./LandOwnerComponents/AddLandOwner";
 import { useEffect } from "react";
 import GitHubPagesFix from "./Authentication,Login & Register/GitHubPagesFix";
+import ManageHistory from "./HistoryComponents/ManageHistory";
 
 
 
@@ -270,6 +271,26 @@ function App() {
             </RequireAuth>
           }
         />
+
+        <Route
+          path="/manage-history"
+          element={
+            <RequireAuth>
+              <ManageHistory />
+            </RequireAuth>
+          }
+        />
+
+        <Route
+          path="/history/all-records"
+          element={
+            <RequireAuth>
+              <ListHistory />
+            </RequireAuth>
+          }
+        />
+
+        
 
         
 
