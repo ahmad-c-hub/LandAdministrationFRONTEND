@@ -156,6 +156,7 @@ const AddLand = () => {
           <option value="Residential">Residential</option>
           <option value="Farming">Farming</option>
           <option value="Agricultural">Agricultural</option>
+          <option value="Commercial">Commercial</option>
         </select>
       </div>
 
