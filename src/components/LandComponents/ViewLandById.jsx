@@ -46,12 +46,12 @@ const ViewLandById = () => {
     }
   };
 
+  const displayEditError = async () => {
+    setShowEditModal(false);
+    setEditMessage("Cannot update to same Usage Type.");
+  }
+
   const handleChange = (e) => {
-    if(e.target.value===land.usageType){
-      setShowEditModal(false);
-      setEditMessage("Cannot update to same Usage Type.");
-      return;
-    }
     const { name, value } = e.target;
     setLand((prev) => ({ ...prev, [name]: value }));
   };
@@ -168,7 +168,7 @@ const ViewLandById = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowEditModal(false)}>Cancel</Button>
-          <Button variant="success" onClick={handleEditSubmit}>Save Changes</Button>
+          <Button variant="success" onClick={land.usageType!==usageType ? handleEditSubmit : displayEditError}>Save Changes</Button>
         </Modal.Footer>
       </Modal>
 
