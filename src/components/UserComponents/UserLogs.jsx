@@ -5,7 +5,7 @@ import axios from 'axios';
 const UserLogs = () => {
   const [logs, setLogs] = useState([]);
   const [page, setPage] = useState(0);
-  const [size] = useState(10);
+  const size = 10;
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -34,13 +34,26 @@ const UserLogs = () => {
     }
   };
 
+  const formatTimestamp = (timestamp) => {
+    if (!timestamp) return "N/A";
+    const date = new Date(timestamp);
+    return new Intl.DateTimeFormat('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    }).format(date);
+  };
+
   return (
     <Container className="mt-4">
-      <h3>User Logs</h3>
+      <h3 className="text-center mb-4">User Logs</h3>
 
       {error && <Alert variant="danger">{error}</Alert>}
       {loading ? (
-        <Spinner animation="border" />
+        <div className="text-center"><Spinner animation="border" /></div>
       ) : (
         <>
           <Table striped bordered hover responsive>
@@ -62,7 +75,7 @@ const UserLogs = () => {
                     <td>{log.username}</td>
                     <td>{log.role}</td>
                     <td>{log.action}</td>
-                    <td>{log.timestamp}</td>
+                    <td>{formatTimestamp(log.timestamp)}</td>
                     <td><code>{log.description}</code></td>
                   </tr>
                 ))
@@ -74,15 +87,25 @@ const UserLogs = () => {
             </tbody>
           </Table>
 
-          <Pagination className="justify-content-center">
-            <Pagination.Prev onClick={() => handlePageChange(page - 1)} disabled={page === 0} />
-            {[...Array(totalPages).keys()].map((p) => (
-              <Pagination.Item key={p} active={p === page} onClick={() => handlePageChange(p)}>
-                {p + 1}
-              </Pagination.Item>
-            ))}
-            <Pagination.Next onClick={() => handlePageChange(page + 1)} disabled={page === totalPages - 1} />
-          </Pagination>
+          <div className="d-flex justify-content-center align-items-center gap-3 mt-3">
+            <button
+              className="btn btn-outline-secondary"
+              onClick={() => handlePageChange(page - 1)}
+              disabled={page === 0}
+            >
+              ⬅ Prev
+            </button>
+
+            <span>Page {page + 1} of {totalPages}</span>
+
+            <button
+              className="btn btn-outline-secondary"
+              onClick={() => handlePageChange(page + 1)}
+              disabled={page === totalPages - 1}
+            >
+              Next ➡
+            </button>
+          </div>
         </>
       )}
     </Container>

@@ -35,6 +35,19 @@ const Profile = () => {
     fetchLogs(page);
   }, [page]);
 
+  const formatTimestamp = (timestamp) => {
+    if (!timestamp) return "N/A";
+    const date = new Date(timestamp);
+    return new Intl.DateTimeFormat('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    }).format(date);
+  };
+
   const handleUsernameChange = async () => {
     if (!newUsername.trim()) {
       setError("Username cannot be empty.");
@@ -169,7 +182,7 @@ const Profile = () => {
             {logs.map((log, index) => (
               <tr key={index}>
                 <td>{log.action}</td>
-                <td>{log.timestamp}</td>
+                <td>{formatTimestamp(log.timestamp)}</td>
                 <td><code>{log.description}</code></td>
               </tr>
             ))}
@@ -195,7 +208,6 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* Password Modal */}
       {showPasswordModal && (
         <div className="modal d-block" tabIndex="-1" style={{ background: "#00000099" }}>
           <div className="modal-dialog" role="document">
