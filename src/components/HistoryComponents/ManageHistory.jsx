@@ -1,4 +1,7 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
+const navigate = useNavigate();
 
 const ManageHistory = () => {
   return (
@@ -7,7 +10,7 @@ const ManageHistory = () => {
 
       <div className="p-4 mb-3 rounded" style={{ backgroundColor: "#d4edda" }}>
         <p className="mb-3">Browse through the complete ownership history records in the system.</p>
-        <button className="btn btn-success">📄 View All History</button>
+        <button className="btn btn-success" onClick={() => navigate("/history/all-records")}>📄 View All History</button>
       </div>
 
       <div className="p-4 mb-3 rounded" style={{ backgroundColor: "#d1ecf1" }}>
