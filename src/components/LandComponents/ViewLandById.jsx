@@ -154,7 +154,7 @@ const ViewLandById = () => {
         <label>🏡 Usage Type</label>
         <select
           className="form-control"
-          value={land.usageType}
+          value={usageType}
           onChange={(e) => setUsageType(e.target.value)}
         >
           <option value="Residential">Residential</option>
