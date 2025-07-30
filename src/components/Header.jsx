@@ -84,7 +84,7 @@ const Header = () => {
         </Link>
 
         {token ? (
-          <div className="d-flex flex-wrap gap-2 mt-2 mt-md-0 align-items-center justify-content-end">
+          <div className="d-flex flex-wrap gap-2 mt-2 mt-md-0 align-items-center justify-content-end button-container">
             {role === "ROLE_ADMIN" && (
               <select
                 className="form-select form-select-sm country-dropdown"
@@ -100,13 +100,13 @@ const Header = () => {
               </select>
             )}
 
-            <Link to="/dashboard" className="btn btn-outline-light btn-sm">
+            <Link to="/dashboard" className="btn btn-outline-light btn-sm header-btn">
               📊 Dashboard
             </Link>
-            <Link to="/profile" className="btn btn-outline-light btn-sm">
+            <Link to="/profile" className="btn btn-outline-light btn-sm header-btn">
               👤 Profile
             </Link>
-            <button onClick={handleLogoutClick} className="btn btn-danger btn-sm">
+            <button onClick={handleLogoutClick} className="btn btn-danger btn-sm header-btn">
               Log out
             </button>
           </div>

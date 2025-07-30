@@ -37,12 +37,23 @@
   border:0px;
 }
 
-.country-dropdown {
+..country-dropdown {
   min-width: 160px;
   max-width: 100%;
 }
 
 @media (max-width: 768px) {
+  .button-container {
+    flex-direction: column;
+    align-items: stretch !important;
+    width: 100%;
+  }
+
+  .header-btn {
+    width: 100%;
+    text-align: center;
+  }
+
   .country-dropdown {
     width: 100%;
   }
