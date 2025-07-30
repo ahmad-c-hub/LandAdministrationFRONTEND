@@ -163,7 +163,7 @@ const Profile = () => {
           ) : (
             <span>
               {username}{" "}
-              {role === "ROLE_USER" && country && (
+              {role === "ROLE_USER" &&  (
                 <span className="badge bg-secondary ms-2">{country}</span>
               )}
             </span>
