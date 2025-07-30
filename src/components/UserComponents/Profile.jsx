@@ -10,6 +10,7 @@ const Profile = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [editMode, setEditMode] = useState(false);
   const [newUsername, setNewUsername] = useState("");
+  const [country, setCountry] = useState("");
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -24,6 +25,7 @@ const Profile = () => {
       setTotalPages(res.data.totalPages);
       if (res.data.content.length > 0) {
         setUsername(res.data.content[0].username);
+        setCountry(res.data.content[0].country)
         setNewUsername(res.data.content[0].username);
       }
     } catch (error) {
@@ -34,6 +36,8 @@ const Profile = () => {
   useEffect(() => {
     fetchLogs(page);
   }, [page]);
+
+  
 
   const formatTimestamp = (timestamp) => {
     if (!timestamp) return "N/A";
@@ -138,7 +142,7 @@ const Profile = () => {
               style={{ maxWidth: "300px" }}
             />
           ) : (
-            <span>{username}</span>
+            <span>{username} {country}</span>
           )}
         </div>
 

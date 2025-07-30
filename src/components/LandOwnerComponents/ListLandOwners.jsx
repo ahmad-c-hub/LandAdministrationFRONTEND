@@ -6,6 +6,14 @@ const ListLandOwners = () => {
   const [landOwners, setLandOwners] = useState([]);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [role, setRole] = useState("ROLE_USER");
+
+  useEffect(() =>{
+    axios
+        .get("https://landadministration-production.up.railway.app/user/get-role")
+        .then((res) => setRole(res.data))
+        .catch((err) => console.error("Failed to get role:", err));
+  });
 
   useEffect(() => {
     axios
@@ -35,6 +43,7 @@ const ListLandOwners = () => {
             <th>Email Address</th>
             <th>Number of Lands</th>
             <th>Age</th>
+            {role==='ROLE_ADMIN'? <th>Country</th> :null}
           </tr>
         </thead>
         <tbody>
@@ -46,6 +55,7 @@ const ListLandOwners = () => {
               <td>{owner.emailAddress}</td>
               <td>{owner.numberOfLands}</td>
               <td>{owner.age}</td>
+              {role==='ROLE_ADMIN'? <td>owner.country</td> :null}
             </tr>
           ))}
         </tbody>
