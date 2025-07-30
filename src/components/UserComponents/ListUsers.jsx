@@ -5,7 +5,7 @@ import { Container, Table, Alert, Pagination } from "react-bootstrap";
 const ListUsers = () => {
   const [users, setUsers] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
-  const [page, setPage] = useState(0); // Backend is 0-indexed
+  const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
   const fetchUsers = (pageNumber) => {
@@ -87,19 +87,21 @@ const ListUsers = () => {
           <Table striped bordered hover responsive>
             <thead>
               <tr>
-                <th>#</th>
+                <th>ID</th>
                 <th>Username</th>
                 <th>Role</th>
                 <th>Is Google User</th>
+                <th>Country</th>
               </tr>
             </thead>
             <tbody>
-              {users.map((user, index) => (
-                <tr key={user.username}>
-                  <td>{page * 5 + index + 1}</td>
+              {users.map((user) => (
+                <tr key={user.id}>
+                  <td>{user.id}</td>
                   <td>{user.username}</td>
                   <td>{user.role}</td>
                   <td>{user.googleUser ? "Yes" : "No"}</td>
+                  <td>{user.country || "N/A"}</td>
                 </tr>
               ))}
             </tbody>
