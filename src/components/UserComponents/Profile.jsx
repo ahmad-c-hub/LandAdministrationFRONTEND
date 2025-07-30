@@ -6,11 +6,12 @@ import { Table } from "react-bootstrap";
 const Profile = () => {
   const [logs, setLogs] = useState([]);
   const [username, setUsername] = useState("");
+  const [country, setCountry] = useState("");
+  const [role, setRole] = useState("ROLE_USER");
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [editMode, setEditMode] = useState(false);
   const [newUsername, setNewUsername] = useState("");
-  const [country, setCountry] = useState("");
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -20,12 +21,14 @@ const Profile = () => {
 
   const fetchLogs = async (pageNumber) => {
     try {
-      const res = await axios.get(`https://landadministration-production.up.railway.app/user-log/current-user?page=${pageNumber}&size=10`);
+      const res = await axios.get(
+        `https://landadministration-production.up.railway.app/user-log/current-user?page=${pageNumber}&size=10`
+      );
       setLogs(res.data.content);
       setTotalPages(res.data.totalPages);
       if (res.data.content.length > 0) {
         setUsername(res.data.content[0].username);
-        setCountry(res.data.content[0].country)
+        setCountry(res.data.content[0].country);
         setNewUsername(res.data.content[0].username);
       }
     } catch (error) {
@@ -33,21 +36,27 @@ const Profile = () => {
     }
   };
 
+  const fetchRole = () => {
+    axios
+      .get("https://landadministration-production.up.railway.app/user/get-role")
+      .then((res) => setRole(res.data))
+      .catch((err) => console.error("Failed to get role:", err));
+  };
+
   useEffect(() => {
     fetchLogs(page);
+    fetchRole();
   }, [page]);
-
-  
 
   const formatTimestamp = (timestamp) => {
     if (!timestamp) return "N/A";
     const date = new Date(timestamp);
-    return new Intl.DateTimeFormat('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
+    return new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
       hour12: true,
     }).format(date);
   };
@@ -62,14 +71,19 @@ const Profile = () => {
       return;
     }
     try {
-      await axios.put("https://landadministration-production.up.railway.app/user/update-current-user", {
-        username: newUsername.trim(),
-      });
+      await axios.put(
+        "https://landadministration-production.up.railway.app/user/update-current-user",
+        {
+          username: newUsername.trim(),
+        }
+      );
       setSuccess("✅ Username changed successfully. Redirecting to login...");
       setTimeout(() => {
         localStorage.removeItem("token");
         navigate("/login", {
-          state: { message: "🔒 Password changed successfully. Please log in again." },
+          state: {
+            message: "🔒 Username changed. Please log in again.",
+          },
         });
       }, 3000);
     } catch (err) {
@@ -90,16 +104,21 @@ const Profile = () => {
       return;
     }
     try {
-      await axios.put("https://landadministration-production.up.railway.app/user/change-password", {
-        oldPassword,
-        newPassword,
-      });
+      await axios.put(
+        "https://landadministration-production.up.railway.app/user/change-password",
+        {
+          oldPassword,
+          newPassword,
+        }
+      );
       setShowPasswordModal(false);
       setSuccess("✅ Password changed successfully. Redirecting to login...");
       setTimeout(() => {
         localStorage.removeItem("token");
         navigate("/login", {
-          state: { message: "🔒 Password changed successfully. Please log in again." },
+          state: {
+            message: "🔒 Password changed. Please log in again.",
+          },
         });
       }, 3000);
     } catch (err) {
@@ -142,13 +161,20 @@ const Profile = () => {
               style={{ maxWidth: "300px" }}
             />
           ) : (
-            <span>{username} {country}</span>
+            <span>
+              {username}{" "}
+              {role === "ROLE_USER" && country && (
+                <span className="badge bg-secondary ms-2">{country}</span>
+              )}
+            </span>
           )}
         </div>
 
         {editMode ? (
           <div className="ms-3 d-flex">
-            <button className="btn btn-success me-2" onClick={handleUsernameChange}>Save</button>
+            <button className="btn btn-success me-2" onClick={handleUsernameChange}>
+              Save
+            </button>
             <button
               className="btn btn-secondary"
               onClick={() => {
@@ -162,10 +188,16 @@ const Profile = () => {
           </div>
         ) : (
           <div className="d-flex ms-3">
-            <button className="btn btn-outline-primary me-2" onClick={() => setEditMode(true)}>
+            <button
+              className="btn btn-outline-primary me-2"
+              onClick={() => setEditMode(true)}
+            >
               ✏️ Edit
             </button>
-            <button className="btn btn-outline-danger" onClick={() => setShowPasswordModal(true)}>
+            <button
+              className="btn btn-outline-danger"
+              onClick={() => setShowPasswordModal(true)}
+            >
               🔒 Change Password
             </button>
           </div>
@@ -187,7 +219,9 @@ const Profile = () => {
               <tr key={index}>
                 <td>{log.action}</td>
                 <td>{formatTimestamp(log.timestamp)}</td>
-                <td><code>{log.description}</code></td>
+                <td>
+                  <code>{log.description}</code>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -201,7 +235,9 @@ const Profile = () => {
           >
             ⬅️ Previous
           </button>
-          <span>Page {page + 1} of {totalPages}</span>
+          <span>
+            Page {page + 1} of {totalPages}
+          </span>
           <button
             className="btn btn-outline-secondary"
             disabled={page + 1 >= totalPages}
@@ -232,7 +268,9 @@ const Profile = () => {
                 onChange={(e) => setNewPassword(e.target.value)}
               />
               <div className="d-flex justify-content-end">
-                <button className="btn btn-success me-2" onClick={handlePasswordChange}>Change</button>
+                <button className="btn btn-success me-2" onClick={handlePasswordChange}>
+                  Change
+                </button>
                 <button
                   className="btn btn-secondary"
                   onClick={() => {

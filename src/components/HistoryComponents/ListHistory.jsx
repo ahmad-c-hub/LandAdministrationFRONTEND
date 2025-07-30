@@ -7,6 +7,7 @@ const ListHistory = () => {
   const [history, setHistory] = useState([]);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [role, setRole] = useState("ROLE_USER");
   const size = 7;
 
   const formatDate = (dateString) => {
@@ -19,6 +20,7 @@ const ListHistory = () => {
 
   useEffect(() => {
     fetchHistory();
+    fetchRole();
   }, [page]);
 
   const fetchHistory = () => {
@@ -29,6 +31,13 @@ const ListHistory = () => {
         setTotalPages(response.data.totalPages);
       })
       .catch((error) => console.error("Error fetching history:", error));
+  };
+
+  const fetchRole = () => {
+    axios
+      .get("https://landadministration-production.up.railway.app/user/get-role")
+      .then((res) => setRole(res.data))
+      .catch((err) => console.error("Failed to get role:", err));
   };
 
   const handlePrevious = () => {
@@ -50,6 +59,7 @@ const ListHistory = () => {
             <th>Land Coordinates</th>
             <th>Owner Name</th>
             <th>Owner ID</th>
+            {role === "ROLE_ADMIN" && <th>Country</th>}
             <th>Ownership Start Date</th>
             <th>Ownership End Date</th>
             <th>Created At</th>
@@ -79,6 +89,9 @@ const ListHistory = () => {
                 </Link>
               </td>
               <td>{record.landOwner.id}</td>
+              {role === "ROLE_ADMIN" && (
+                <td>{record.land.country || record.landOwner.country || "N/A"}</td>
+              )}
               <td>{formatDate(record.ownershipStart)}</td>
               <td>{formatDate(record.ownershipEnd)}</td>
               <td>{formatDate(record.createdAt)}</td>
