@@ -34,7 +34,7 @@ const Header = () => {
         })
         .catch((err) => {
           console.error("Failed to get country:", err);
-          setSelectedCountry("All Countries"); // fallback
+          setSelectedCountry("All Countries");
         });
     }
   }, [token]);
@@ -58,7 +58,6 @@ const Header = () => {
     const newCountry = e.target.value;
     setSelectedCountry(newCountry);
 
-    // If All Countries selected, send empty string
     const paramToSend = newCountry === "All Countries" ? "" : newCountry;
 
     try {
@@ -71,7 +70,7 @@ const Header = () => {
           },
         }
       );
-      window.location.reload(); // Refresh page to rebase data
+      window.location.reload();
     } catch (error) {
       console.error("Failed to set country:", error);
     }
@@ -79,17 +78,16 @@ const Header = () => {
 
   return (
     <header>
-      <nav className="navbar navbar-dark bg-dark px-3">
+      <nav className="navbar navbar-dark bg-dark px-3 flex-wrap flex-md-nowrap">
         <Link to="/" className="navbar-brand">
           Land Administration
         </Link>
 
         {token ? (
-          <div className="d-flex gap-3 align-items-center">
+          <div className="d-flex flex-wrap gap-2 mt-2 mt-md-0 align-items-center justify-content-end">
             {role === "ROLE_ADMIN" && (
               <select
-                className="form-select form-select-sm me-2"
-                style={{ width: "180px" }}
+                className="form-select form-select-sm country-dropdown"
                 value={selectedCountry}
                 onChange={handleCountryChange}
               >
@@ -108,7 +106,7 @@ const Header = () => {
             <Link to="/profile" className="btn btn-outline-light btn-sm">
               👤 Profile
             </Link>
-            <button onClick={handleLogoutClick} className="btn btn-danger">
+            <button onClick={handleLogoutClick} className="btn btn-danger btn-sm">
               Log out
             </button>
           </div>

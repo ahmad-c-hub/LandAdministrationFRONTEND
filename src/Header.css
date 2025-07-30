@@ -36,3 +36,14 @@
   color:white;
   border:0px;
 }
+
+.country-dropdown {
+  min-width: 160px;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .country-dropdown {
+    width: 100%;
+  }
+}
