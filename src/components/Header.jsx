@@ -11,17 +11,30 @@ const Header = () => {
 
   useEffect(() => {
     if (token) {
+      // Fetch user role
       axios
         .get("https://landadministration-production.up.railway.app/user/get-role", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
-        .then((response) => {
-          setRole(response.data);
+        .then((res) => setRole(res.data))
+        .catch((err) => console.error("Failed to get role:", err));
+
+      // Fetch current country
+      axios
+        .get("https://landadministration-production.up.railway.app/user/get-country", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         })
-        .catch((error) => {
-          console.error("Failed to get role:", error);
+        .then((res) => {
+          const country = res.data;
+          setSelectedCountry(country === "" ? "All Countries" : country);
+        })
+        .catch((err) => {
+          console.error("Failed to get country:", err);
+          setSelectedCountry("All Countries"); // fallback
         });
     }
   }, [token]);
@@ -45,9 +58,12 @@ const Header = () => {
     const newCountry = e.target.value;
     setSelectedCountry(newCountry);
 
+    // If All Countries selected, send empty string
+    const paramToSend = newCountry === "All Countries" ? "" : newCountry;
+
     try {
       await axios.put(
-        `https://landadministration-production.up.railway.app/user/set-country?country=${encodeURIComponent(newCountry)}`,
+        `https://landadministration-production.up.railway.app/user/set-country?country=${encodeURIComponent(paramToSend)}`,
         null,
         {
           headers: {
@@ -55,7 +71,7 @@ const Header = () => {
           },
         }
       );
-      window.location.reload(); // Refresh the page
+      window.location.reload(); // Refresh page to rebase data
     } catch (error) {
       console.error("Failed to set country:", error);
     }
