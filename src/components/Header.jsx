@@ -55,7 +55,6 @@ const Header = () => {
           },
         }
       );
-      window.location.reload(); // Refresh the page
     } catch (error) {
       console.error("Failed to set country:", error);
     }
