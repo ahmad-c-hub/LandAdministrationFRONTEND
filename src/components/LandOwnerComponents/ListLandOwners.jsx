@@ -55,7 +55,7 @@ const ListLandOwners = () => {
               <td>{owner.emailAddress}</td>
               <td>{owner.numberOfLands}</td>
               <td>{owner.age}</td>
-              {role==='ROLE_ADMIN'? <td>owner.country</td> :null}
+              {role==='ROLE_ADMIN'? <td>{owner.country}</td> :null}
             </tr>
           ))}
         </tbody>
