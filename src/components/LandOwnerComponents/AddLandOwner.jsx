@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const AddLandOwner = () => {
@@ -8,9 +8,18 @@ const AddLandOwner = () => {
     phoneNb: "",
     emailAddress: "",
     dateOfBirth: "",
+    country: ""
   });
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [role, setRole] = useState("ROLE_USER");
+
+  useEffect(() => {
+    axios
+      .get("https://landadministration-production.up.railway.app/user/get-role")
+      .then((res) => setRole(res.data))
+      .catch((err) => console.error("Failed to get role:", err));
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,11 +27,18 @@ const AddLandOwner = () => {
   };
 
   const handleSubmit = async () => {
-    try {
-      if (formData.firstName === "" || formData.lastName === "" || formData.emailAddress === "" || formData.dateOfBirth === "" || formData.phoneNb === "") {
+    const requiredFields = ["firstName", "lastName", "emailAddress", "phoneNb", "dateOfBirth"];
+    if (role === "ROLE_ADMIN") {
+      requiredFields.push("country");
+    }
+
+    const hasEmpty = requiredFields.some((field) => formData[field].trim() === "");
+    if (hasEmpty) {
       setErrorMessage("Please fill in all required fields.");
       return;
     }
+
+    try {
       const res = await axios.post(
         "https://landadministration-production.up.railway.app/land-owner/add",
         formData
@@ -35,6 +51,7 @@ const AddLandOwner = () => {
         phoneNb: "",
         emailAddress: "",
         dateOfBirth: "",
+        country: ""
       });
     } catch (err) {
       setSuccessMessage("");
@@ -44,7 +61,6 @@ const AddLandOwner = () => {
       else setErrorMessage("An unknown error occurred.");
     }
   };
-
 
   return (
     <div className="container mt-5">
@@ -110,6 +126,25 @@ const AddLandOwner = () => {
             className="form-control"
           />
         </div>
+
+        {role === "ROLE_ADMIN" && (
+          <div className="mb-3">
+            <label>🌍 Country</label>
+            <select
+              name="country"
+              value={formData.country}
+              onChange={handleChange}
+              className="form-select"
+            >
+              <option value="">-- Select Country --</option>
+              <option>Lebanon</option>
+              <option>Syria</option>
+              <option>United Arab Emirates</option>
+              <option>Canada</option>
+              <option>Saudi Arabia</option>
+            </select>
+          </div>
+        )}
 
         <button className="btn btn-success w-100" onClick={handleSubmit}>
           ➕ Add Land Owner
