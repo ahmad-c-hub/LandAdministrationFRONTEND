@@ -84,7 +84,7 @@ const Header = () => {
         </Link>
 
         {token ? (
-          <div className="d-flex flex-wrap gap-2 mt-2 mt-md-0 align-items-center justify-content-end">
+          <div className="d-flex flex-wrap gap-2 mt-2 mt-md-0 align-items-center justify-content-end button-container">
             {role === "ROLE_ADMIN" && (
               <select
                 className="form-select form-select-sm country-dropdown"
@@ -99,16 +99,17 @@ const Header = () => {
                 <option>Syria</option>
               </select>
             )}
-
-            <Link to="/dashboard" className="btn btn-outline-light btn-sm">
-              📊 Dashboard
-            </Link>
-            <Link to="/profile" className="btn btn-outline-light btn-sm">
-              👤 Profile
-            </Link>
-            <button onClick={handleLogoutClick} className="btn btn-danger btn-sm">
-              Log out
-            </button>
+            <div className="d-flex w-100 w-md-auto justify-content-between gap-2 button-row">
+              <Link to="/dashboard" className="btn btn-outline-light btn-sm flex-fill">
+                📊 Dashboard
+              </Link>
+              <Link to="/profile" className="btn btn-outline-light btn-sm flex-fill">
+                👤 Profile
+              </Link>
+              <button onClick={handleLogoutClick} className="btn btn-danger btn-sm flex-fill">
+                Log out
+              </button>
+            </div>
           </div>
         ) : (
           <button onClick={() => navigate("/login")} className="btn btn-primary">

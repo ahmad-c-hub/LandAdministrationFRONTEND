@@ -46,4 +46,15 @@
   .country-dropdown {
     width: 100%;
   }
+
+  .button-row {
+    display: flex;
+    width: 100%;
+  }
+
+  .button-row .btn {
+    flex: 1 1 0;
+    min-width: 0;
+  }
 }
+
