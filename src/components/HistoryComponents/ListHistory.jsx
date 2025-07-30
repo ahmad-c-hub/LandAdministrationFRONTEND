@@ -60,8 +60,8 @@ const ListHistory = () => {
             <th>Owner Name</th>
             <th>Owner ID</th>
             {role === "ROLE_ADMIN" && <th>Country</th>}
-            <th>Ownership Start Date</th>
-            <th>Ownership End Date</th>
+            <th>Start Date</th>
+            <th>End Date</th>
             <th>Created At</th>
           </tr>
         </thead>
