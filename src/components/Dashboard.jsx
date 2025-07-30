@@ -86,7 +86,7 @@ const Dashboard = () => {
 };
 
 const StatCard = ({ title, count, gradient }) => (
-  <div className="col-md-6 col-lg-3">
+  <div className="col-6 col-md-6 col-lg-3">
     <div className="card text-white shadow text-center border-0" style={{ background: gradient, borderRadius: "1rem" }}>
       <div className="card-body p-3">
         <h6 className="card-title fs-6 fw-bold">{title}</h6>
@@ -95,6 +95,7 @@ const StatCard = ({ title, count, gradient }) => (
     </div>
   </div>
 );
+
 
 const QuickLink = ({ title, url, color, classBased}) => (
   <div className={classBased==='col-md-4' ? "col-md-4": "col-md-3"}>
