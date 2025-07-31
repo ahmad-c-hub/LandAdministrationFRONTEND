@@ -25,6 +25,7 @@ const ViewLandById = () => {
   const fetchLand = async () => {
     if(!landId || isNaN(landId)){
       setError("Please enter a number!");
+      return;
     }
     try {
       const response = await axios.get(`https://landadministration-production.up.railway.app/land/get/${landId}`);
