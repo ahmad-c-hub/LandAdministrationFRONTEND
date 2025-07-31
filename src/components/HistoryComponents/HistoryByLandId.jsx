@@ -21,7 +21,7 @@ const HistoryByLandId = () => {
 
   const fetchHistory = () => {
     if (!landId) {
-      setErrorMsg("Please enter a Land ID.");
+      setErrorMsg("Please enter a valid Land ID.");
       return;
     }
 

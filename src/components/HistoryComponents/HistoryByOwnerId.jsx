@@ -20,7 +20,7 @@ const HistoryByOwnerId = () => {
 
   const fetchHistory = () => {
     if (!ownerId) {
-      setErrorMsg("Please enter an Owner ID.");
+      setErrorMsg("Please enter a valid Owner ID.");
       return;
     }
 

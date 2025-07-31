@@ -16,7 +16,7 @@ const ViewOwnerById = () => {
   const [editSuccess, setEditSuccess] = useState('');
 
   const fetchOwner = async () => {
-    if (!ownerId.trim()) {
+    if (!ownerId) {
       setErrorMsg('Please enter a valid Owner ID.');
       setLandOwner(null);
       return;

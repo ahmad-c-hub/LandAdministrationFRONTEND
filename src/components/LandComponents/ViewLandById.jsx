@@ -24,7 +24,7 @@ const ViewLandById = () => {
 
   const fetchLand = async () => {
     if(!landId || isNaN(landId)){
-      setError("Please enter a number!");
+      setError("Please enter a valid Land ID.");
       return;
     }
     try {

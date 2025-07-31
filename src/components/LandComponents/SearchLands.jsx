@@ -59,6 +59,7 @@ const SearchLands = () => {
         </div>
         <div className="col-md-3">
         <select
+          placeholder="Usage Type"
           className="form-control"
           value={usageType}
           onChange={(e) => {
