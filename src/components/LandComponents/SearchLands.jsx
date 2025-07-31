@@ -58,7 +58,6 @@ const SearchLands = () => {
           />
         </div>
         <div className="col-md-3">
-        <label>🏡 Usage Type</label>
         <select
           className="form-control"
           value={usageType}
