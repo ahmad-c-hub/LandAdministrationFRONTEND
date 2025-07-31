@@ -61,8 +61,15 @@ const SearchLands = () => {
         <select
           className="form-control"
           value={usageType}
-          onChange={(e) => setUsageType(e.target.value)}
+          onChange={(e) => {
+            if(e.target.value==="none"){
+              setUsageType("");
+            }else{
+              setUsageType(e.target.value);
+            }
+          }}
         >
+          <option value="none">None</option>
           <option value="Residential">Residential</option>
           <option value="Farming">Farming</option>
           <option value="Agricultural">Agricultural</option>
