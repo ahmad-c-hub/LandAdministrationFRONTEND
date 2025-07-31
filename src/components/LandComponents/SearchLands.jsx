@@ -58,14 +58,18 @@ const SearchLands = () => {
           />
         </div>
         <div className="col-md-3">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Usage Type"
-            value={usageType}
-            onChange={(e) => setUsageType(e.target.value)}
-          />
-        </div>
+        <label>🏡 Usage Type</label>
+        <select
+          className="form-control"
+          value={usageType}
+          onChange={(e) => setUsageType(e.target.value)}
+        >
+          <option value="Residential">Residential</option>
+          <option value="Farming">Farming</option>
+          <option value="Agricultural">Agricultural</option>
+          <option value="Commercial">Commercial</option>
+        </select>
+      </div>
         <div className="col-md-3">
           <input
             type="text"
