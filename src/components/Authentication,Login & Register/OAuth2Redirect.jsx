@@ -21,7 +21,7 @@ const OAuth2RedirectHandler = () => {
 
     // Call backend to get user info
     axios
-      .get("http://localhost:8080/user/current-user", {
+      .get("http://landadministration-production.up.railway.app/user/current-user", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -42,7 +42,7 @@ const OAuth2RedirectHandler = () => {
   const handleConfirm = async () => {
     try {
       await axios.put(
-        "http://localhost:8080/user/set-country",
+        "http://landadministration-production.up.railway.app/user/set-country",
         {},
         {
           params: { country },
