@@ -28,7 +28,6 @@ const Profile = () => {
       setTotalPages(res.data.totalPages);
       if (res.data.content.length > 0) {
         setUsername(res.data.content[0].username);
-        setCountry(res.data.content[0].country);
         setNewUsername(res.data.content[0].username);
       }
     } catch (error) {
@@ -42,10 +41,18 @@ const Profile = () => {
       .then((res) => setRole(res.data))
       .catch((err) => console.error("Failed to get role:", err));
   };
+   const fetchCountry = () => {
+    axios
+      .get("https://landadministration-production.up.railway.app/user/get-country")
+      .then((res) => setCountry(res.data))
+      .catch((err) => console.error("Failed to get country:", err));
+  };
+
 
   useEffect(() => {
     fetchLogs(page);
     fetchRole();
+    fetchCountry();
   }, [page]);
 
   const formatTimestamp = (timestamp) => {
