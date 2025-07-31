@@ -53,5 +53,24 @@ main {
   flex: 1;
 }
 
+body.dark {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+button.toggle-btn {
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #444;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+body.dark button.toggle-btn {
+  background-color: #ddd;
+  color: black;
+}
+
 
 

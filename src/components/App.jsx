@@ -39,6 +39,7 @@ import GitHubPagesFix from "./Authentication,Login & Register/GitHubPagesFix";
 import ManageHistory from "./HistoryComponents/ManageHistory";
 import HistoryByLandId from "./HistoryComponents/HistoryByLandId";
 import HistoryByOwnerId from "./HistoryComponents/HistoryByOwnerId";
+import DarkModeToggle from "./DarkModeToggle";
 
 
 
@@ -52,6 +53,7 @@ function App() {
   return (
     <div className="app-wrapper d-flex flex-column min-vh-100">
       <Header />
+      <DarkModeToggle/>
       <Routes>
         <Route path="/index.html" element={<GitHubPagesFix />} />
         <Route path='/' element={<Home/>}/>
