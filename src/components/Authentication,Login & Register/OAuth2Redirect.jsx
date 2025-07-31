@@ -26,7 +26,7 @@ const OAuth2RedirectHandler = () => {
       })
       .then((res) => {
         const user = res.data;
-        if (!user.country || user.country.trim() === "") {
+        if (user.country===null) {
           // If country is missing, prompt user to select
           setShowModal(true);
         } else {
