@@ -77,12 +77,12 @@ const ViewUserLogsById = () => {
                 {logs.map((log, index) => (
                   <tr key={index}>
                     <td>{log.username}</td>
-                    <td></td>
+                    <td>{log.id}</td>
                     <td>{log.role}</td>
                     <td>{log.action}</td>
                     <td>{new Date(log.timestamp).toLocaleString()}</td>
                     <td><code>{log.description}</code></td>
-                    <td>log.country</td>
+                    <td>{log.country}</td>
                   </tr>
                 ))}
               </tbody>

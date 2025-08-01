@@ -78,7 +78,7 @@ const UserLogs = () => {
                     <td>{log.action}</td>
                     <td>{formatTimestamp(log.timestamp)}</td>
                     <td><code>{log.description}</code></td>
-                    <td>log.country</td>
+                    <td>{log.country}</td>
                   </tr>
                 ))
               ) : (
