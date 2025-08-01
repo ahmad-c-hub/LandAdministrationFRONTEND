@@ -61,6 +61,7 @@ const UserLogs = () => {
               <tr>
                 <th>#</th>
                 <th>Username</th>
+                <th>User ID</th>
                 <th>Role</th>
                 <th>Action</th>
                 <th>Timestamp</th>
@@ -74,6 +75,7 @@ const UserLogs = () => {
                   <tr key={index}>
                     <td>{page * size + index + 1}</td>
                     <td>{log.username}</td>
+                    <td>{log.id}</td>
                     <td>{log.role}</td>
                     <td>{log.action}</td>
                     <td>{formatTimestamp(log.timestamp)}</td>

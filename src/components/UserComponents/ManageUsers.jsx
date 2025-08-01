@@ -36,7 +36,7 @@ const ManageUsers = () => {
                 📜 View User Logs
               </Button>
               <Button  variant="warning" onClick={() => navigate("/view-logs-by-id")}>
-                🔍 View Logs by User ID
+                🆔 View Logs by User ID
               </Button>
           </div>
 
@@ -55,6 +55,7 @@ const ManageUsers = () => {
             <button className="btn btn-success" onClick={() => navigate("/get-user")}>
               🆔 View User by ID
             </button>
+            
           </div>
            
         </Card.Body>
