@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Container, Table, Alert, Pagination } from "react-bootstrap";
+import { Container, Table, Alert, Button } from "react-bootstrap";
 
 const ListUsers = () => {
   const [users, setUsers] = useState([]);
@@ -28,6 +28,8 @@ const ListUsers = () => {
         } else {
           setErrorMsg("Request error: " + error.message);
         }
+        setUsers([]);
+        setTotalPages(0);
       });
   };
 
@@ -41,40 +43,9 @@ const ListUsers = () => {
     }
   };
 
-  const renderPagination = () => {
-    const items = [];
-    for (let number = 0; number < totalPages; number++) {
-      items.push(
-        <Pagination.Item
-          key={number}
-          active={number === page}
-          onClick={() => handlePageChange(number)}
-        >
-          {number + 1}
-        </Pagination.Item>
-      );
-    }
-
-    return (
-      <Pagination className="justify-content-center mt-3">
-        <Pagination.First onClick={() => handlePageChange(0)} disabled={page === 0} />
-        <Pagination.Prev onClick={() => handlePageChange(page - 1)} disabled={page === 0} />
-        {items}
-        <Pagination.Next
-          onClick={() => handlePageChange(page + 1)}
-          disabled={page === totalPages - 1}
-        />
-        <Pagination.Last
-          onClick={() => handlePageChange(totalPages - 1)}
-          disabled={page === totalPages - 1}
-        />
-      </Pagination>
-    );
-  };
-
   return (
-    <Container className="mt-4">
-      <h2 className="mb-4 text-center">List of Users</h2>
+    <Container className="mt-4 mb-5">
+      <h2 className="mb-4 text-center">👥 List of Users</h2>
 
       {errorMsg && (
         <Alert variant="danger" className="text-center fw-bold">
@@ -107,7 +78,28 @@ const ListUsers = () => {
             </tbody>
           </Table>
 
-          {renderPagination()}
+          {/* Simplified Prev/Next Pagination UI */}
+          <div className="d-flex justify-content-center align-items-center gap-3 mt-3">
+            <Button
+              variant="outline-primary"
+              onClick={() => handlePageChange(page - 1)}
+              disabled={page === 0}
+            >
+              ◀ Prev
+            </Button>
+
+            <span>
+              Page {page + 1} of {totalPages}
+            </span>
+
+            <Button
+              variant="outline-primary"
+              onClick={() => handlePageChange(page + 1)}
+              disabled={page + 1 >= totalPages}
+            >
+              Next ▶
+            </Button>
+          </div>
         </>
       )}
     </Container>

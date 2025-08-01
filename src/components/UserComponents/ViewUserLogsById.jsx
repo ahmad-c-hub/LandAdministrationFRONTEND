@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Container, Card, Button, Form, Table, Pagination, Alert } from "react-bootstrap";
+import { Container, Card, Button, Form, Table, Alert } from "react-bootstrap";
 
 const ViewUserLogsById = () => {
   const [userId, setUserId] = useState("");
@@ -11,34 +11,35 @@ const ViewUserLogsById = () => {
 
   const fetchLogs = async (pageNum = 0) => {
     try {
-      const response = await axios.get(`https://landadministration-production.up.railway.app/user-log/records/${userId}?page=${pageNum}&size=10`);
+      const response = await axios.get(
+        `https://landadministration-production.up.railway.app/user-log/records/${userId}?page=${pageNum}&size=10`
+      );
       setLogs(response.data.content);
       setTotalPages(response.data.totalPages);
       setPage(pageNum);
       setError("");
     } catch (err) {
-        const status = err.response?.status;
-        if (status === 400 || status === 404) {
+      const status = err.response?.status;
+      if (status === 400 || status === 404) {
         setError("User ID does not exist.");
-        } else {
+      } else {
         setError("⚠️ Failed to fetch logs. Please try again.");
-        }
-        setLogs([]);
-        setTotalPages(0);
+      }
+      setLogs([]);
+      setTotalPages(0);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (userId.trim() !== "") {
-      fetchLogs();
+      fetchLogs(0);
     }
   };
 
   const handlePageChange = (newPage) => {
     if (newPage >= 0 && newPage < totalPages) {
-      setPage(newPage);
-      fetchLogs(newPage)
+      fetchLogs(newPage);
     }
   };
 
@@ -46,6 +47,7 @@ const ViewUserLogsById = () => {
     <Container className="mt-4 mb-5">
       <Card className="shadow p-4" style={{ backgroundColor: "#f5f5f5" }}>
         <Card.Title className="text-center mb-4">🔍 View Logs by User ID</Card.Title>
+
         <Form onSubmit={handleSubmit} className="d-flex justify-content-center mb-4">
           <Form.Control
             type="number"
@@ -88,15 +90,28 @@ const ViewUserLogsById = () => {
               </tbody>
             </Table>
 
-            <Pagination className="justify-content-center">
-                  <Pagination.Prev onClick={() => handlePageChange(page - 1)} disabled={page === 0} />
-                  {[...Array(totalPages)].map((_, i) => (
-                      <Pagination.Item key={i} active={i === page} onClick={() => fetchLogs(i)}>
-                      {i + 1}
-                      </Pagination.Item>
-                  ))}
-                  <Pagination.Next onClick={() => handlePageChange(page + 1)} disabled={page === totalPages - 1} />
-            </Pagination>
+            {/* Simple Prev / Next Pagination */}
+            <div className="d-flex justify-content-center align-items-center gap-3 mt-3">
+              <Button
+                variant="outline-primary"
+                onClick={() => handlePageChange(page - 1)}
+                disabled={page === 0}
+              >
+                ◀ Prev
+              </Button>
+
+              <span>
+                Page {page + 1} of {totalPages}
+              </span>
+
+              <Button
+                variant="outline-primary"
+                onClick={() => handlePageChange(page + 1)}
+                disabled={page + 1 >= totalPages}
+              >
+                Next ▶
+              </Button>
+            </div>
           </>
         )}
       </Card>
