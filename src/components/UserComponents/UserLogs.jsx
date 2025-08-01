@@ -65,6 +65,7 @@ const UserLogs = () => {
                 <th>Action</th>
                 <th>Timestamp</th>
                 <th>Description</th>
+                <th>Country</th>
               </tr>
             </thead>
             <tbody>
@@ -77,11 +78,12 @@ const UserLogs = () => {
                     <td>{log.action}</td>
                     <td>{formatTimestamp(log.timestamp)}</td>
                     <td><code>{log.description}</code></td>
+                    <td>log.country</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6" className="text-center">No logs found.</td>
+                  <td colSpan="7" className="text-center">No logs found.</td>
                 </tr>
               )}
             </tbody>
