@@ -44,6 +44,7 @@ const SetUserRole = () => {
               <Form.Select value={role} onChange={(e) => setRole(e.target.value)}>
                 <option value="ROLE_USER">ROLE_USER</option>
                 <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                <option value="ROLE_COUNTRY_ADMIN">ROLE_COUNJTRY_ADMIN</option>
               </Form.Select>
             </Form.Group>
           </Col>
