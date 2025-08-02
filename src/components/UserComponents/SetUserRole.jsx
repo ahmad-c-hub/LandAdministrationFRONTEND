@@ -5,8 +5,10 @@ import axios from "axios";
 const SetUserRole = () => {
   const [userId, setUserId] = useState("");
   const [role, setRole] = useState("ROLE_USER");
+  const [currRole, setCurrRole] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,6 +22,14 @@ const SetUserRole = () => {
       setError("Failed to update role. Please make sure the user ID and role are valid.");
     }
   };
+  useEffect(() =>{
+        axios
+        .get(`https://landadministration-production.up.railway.app/user/get-role`)
+        .then((response) => {
+          setCurrRole(response.data);
+          setError("");
+        })
+      })
 
   return (
     <Container className="mt-4">
@@ -43,8 +53,8 @@ const SetUserRole = () => {
               <Form.Label>Role</Form.Label>
               <Form.Select value={role} onChange={(e) => setRole(e.target.value)}>
                 <option value="ROLE_USER">ROLE_USER</option>
-                <option value="ROLE_ADMIN">ROLE_ADMIN</option>
-                <option value="ROLE_COUNTRY_ADMIN">ROLE_COUNJTRY_ADMIN</option>
+                {currRole==='ROLE_ADMIN'?<option value="ROLE_ADMIN">ROLE_ADMIN</option>:null}
+                <option value="ROLE_COUNTRY_ADMIN">ROLE_COUNTRY_ADMIN</option>
               </Form.Select>
             </Form.Group>
           </Col>
