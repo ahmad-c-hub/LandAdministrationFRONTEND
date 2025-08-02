@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Button, Form, Table, Modal, Alert } from 'react-bootstrap';
 
@@ -14,6 +14,16 @@ const ViewOwnerById = () => {
   const [editData, setEditData] = useState({ phoneNb: '', emailAddress: '' });
   const [editError, setEditError] = useState('');
   const [editSuccess, setEditSuccess] = useState('');
+  const [role, setRole] = useState("ROLE_USER");
+
+  useEffect(() =>{
+        axios
+        .get(`https://landadministration-production.up.railway.app/user/get-role`)
+        .then((response) => {
+          setRole(response.data);
+          setErrorMsg("");
+        })
+      })
 
   const fetchOwner = async () => {
     if (!ownerId || isNaN(ownerId)) {
@@ -87,7 +97,7 @@ const ViewOwnerById = () => {
 
         <Form className="d-flex justify-content-center mb-4">
           <Form.Control
-            type="text"
+            type="number"
             placeholder="Enter Owner ID"
             value={ownerId}
             onChange={(e) => setOwnerId(e.target.value)}
@@ -131,10 +141,10 @@ const ViewOwnerById = () => {
               </tbody>
             </Table>
 
-            <div className="d-flex justify-content-center gap-3 mt-3">
+            {role!=="ROLE_USER"?<div className="d-flex justify-content-center gap-3 mt-3">
               <Button variant="warning" onClick={() => setShowEditModal(true)}>✏️ Edit Owner</Button>
               <Button variant="danger" onClick={() => setShowDeleteModal(true)}>🗑️ Delete Owner</Button>
-            </div>
+            </div>:null}
           </>
         )}
       </Container>

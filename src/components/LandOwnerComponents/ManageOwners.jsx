@@ -1,10 +1,20 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 const ManageOwners = () => {
   const navigate = useNavigate();
+  const [role, setRole] = useState("ROLE_USER");
+  useEffect(() =>{
+        axios
+        .get(`https://landadministration-production.up.railway.app/user/get-role`)
+        .then((response) => {
+          setRole(response.data);
+          setErrorMsg("");
+        })
+      })
   return (
     <div className="container mt-5">
       <h2 className="text-center mb-4">🧑‍🌾 Manage Land Owners</h2>
@@ -33,12 +43,12 @@ const ManageOwners = () => {
         </Button>
       </div>
 
-      <div className="p-4 rounded mb-4" style={{ backgroundColor: "#FEF9C3" }}>
+      {role!=="ROLE_USER"?<div className="p-4 rounded mb-4" style={{ backgroundColor: "#FEF9C3" }}>
         <p>Add an owner by entering their personal data</p>
         <Button variant="warning" className="text-white" onClick={() => navigate("/owners/add")}>
           🧑 Add Land Owner
         </Button>
-      </div>
+      </div>:null}
     </div>
   );
 };
