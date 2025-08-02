@@ -16,6 +16,7 @@ const ViewLandById = () => {
   const [newOwnerId, setNewOwnerId] = useState("");
   const [newOwnerDetails, setNewOwnerDetails] = useState(null);
   const [newOwnerError, setNewOwnerError] = useState("");
+  const [role, setRole] = useState("ROLE_USER");
 
   const [showEditModal, setShowEditModal] = useState(false);
   const [showTransferModal, setShowTransferModal] = useState(false);
@@ -23,6 +24,15 @@ const ViewLandById = () => {
   const [showUnassignConfirmModal, setShowUnassignConfirmModal] = useState(false);
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [polygonCoords, setPolygonCoords] = useState([]);
+
+  useEffect(() =>{
+        axios
+        .get(`https://landadministration-production.up.railway.app/user/get-role`)
+        .then((response) => {
+          setRole(response.data);
+          setError("");
+        })
+      })
 
   const navigate = useNavigate();
 
@@ -191,22 +201,22 @@ const ViewLandById = () => {
           <p><strong>Current Owner:</strong> {land.currentOwner ? land.currentOwner.fullName : "N/A"}</p>
 
           <div className="mt-4 d-flex flex-wrap gap-3">
-            <button className="btn btn-outline-primary" onClick={() => setShowEditModal(true)}>
+            {role!=="ROLE_USER"?<button className="btn btn-outline-primary" onClick={() => setShowEditModal(true)}>
               📝 Edit Land
-            </button>
-            <button className="btn btn-outline-danger" onClick={() => setShowConfirmModal(true)}>
+            </button>:null}
+            {role!=="ROLE_USER"?<button className="btn btn-outline-danger" onClick={() => setShowConfirmModal(true)}>
               🗑️ Delete Land
-            </button>
-            <button className="btn btn-outline-secondary" onClick={() => setShowTransferModal(true)}>
+            </button>:null}
+            {role!=="ROLE_USER"?<button className="btn btn-outline-secondary" onClick={() => setShowTransferModal(true)}>
               👥➡️ Transfer Ownership
-            </button>
-            <button
+            </button>:null}
+            {role!=="ROLE_USER"?<button
               className="btn btn-outline-warning"
               onClick={() => setShowUnassignConfirmModal(true)}
               disabled={!land.currentOwner}
             >
               🔓 Unassign Owner
-            </button>
+            </button>:null}
             <button className="btn btn-outline-info" onClick={handleViewMap}>
               📍 Preview
             </button>

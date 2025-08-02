@@ -1,8 +1,18 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 
 const ManageLands = () => {
   const navigate = useNavigate();
+  const [role, setRole] = useState("ROLE_USER");
+
+  useEffect(() =>{
+        axios
+        .get(`https://landadministration-production.up.railway.app/user/get-role`)
+        .then((response) => {
+          setRole(response.data);
+          setErrorMsg("");
+        })
+      })
 
   return (
     <div className="container mt-5">
@@ -39,12 +49,14 @@ const ManageLands = () => {
         </div>
       </div>
 
+      {role!=='ROLE_USER'?
       <div className="p-4 mb-4 rounded shadow-sm" style={{ backgroundColor: "#d1f7ff" }}>
         <p>Add a land record by entering info about the land you wish to add.</p>
         <button className="btn btn-success" onClick={() => navigate("/lands/add-land")}>
            ➕ Add Land
           </button>
       </div>
+      :null}
 
     </div>
   );
