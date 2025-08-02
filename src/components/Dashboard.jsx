@@ -76,9 +76,9 @@ const Dashboard = () => {
       <hr/>
 
       <div className="row mt-5 g-3">
-        <QuickLink title="Manage Lands" url="/manage-lands" color="wheat" classBased={role==="ROLE_ADMIN" ? "col-md-3" :"col-md-4"}/>
-        <QuickLink title="Manage Owners" url="/manage-owners" color="#43e97b" classBased={role==="ROLE_ADMIN" ? "col-md-3" :"col-md-4"}/>
-        <QuickLink title="Ownership History" url="/manage-history" color="red"classBased={role==="ROLE_ADMIN" ? "col-md-3" :"col-md-4"} />
+        <QuickLink title="Manage Lands" url="/manage-lands" color="wheat" classBased={role!=="ROLE_USER" ? "col-md-3" :"col-md-4"}/>
+        <QuickLink title="Manage Owners" url="/manage-owners" color="#43e97b" classBased={role!=="ROLE_USER" ? "col-md-3" :"col-md-4"}/>
+        <QuickLink title="Ownership History" url="/manage-history" color="red"classBased={role!=="ROLE_USER" ? "col-md-3" :"col-md-4"} />
         {role!=='ROLE_USER' ? <QuickLink title="Manage Users" url="/manage-users" color="blue"/> : null}
       </div>
     </div>
