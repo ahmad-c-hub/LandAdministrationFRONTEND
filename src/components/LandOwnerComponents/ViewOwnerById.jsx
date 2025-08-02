@@ -21,7 +21,6 @@ const ViewOwnerById = () => {
         .get(`https://landadministration-production.up.railway.app/user/get-role`)
         .then((response) => {
           setRole(response.data);
-          setErrorMsg("");
         })
       })
 
