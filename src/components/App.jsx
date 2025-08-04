@@ -168,6 +168,16 @@ function App() {
         
         />
 
+        <Route
+          path="/notifications"
+          element={
+            <RequireAuth>
+              <Notifications/>
+            </RequireAuth>
+          }
+        
+        />
+
 
         
 

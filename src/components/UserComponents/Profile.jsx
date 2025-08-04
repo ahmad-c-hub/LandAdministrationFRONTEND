@@ -41,13 +41,13 @@ const Profile = () => {
       .then((res) => setRole(res.data))
       .catch((err) => console.error("Failed to get role:", err));
   };
-   const fetchCountry = () => {
+
+  const fetchCountry = () => {
     axios
       .get("https://landadministration-production.up.railway.app/user/get-country")
       .then((res) => setCountry(res.data))
       .catch((err) => console.error("Failed to get country:", err));
   };
-
 
   useEffect(() => {
     fetchLogs(page);
@@ -80,17 +80,13 @@ const Profile = () => {
     try {
       await axios.put(
         "https://landadministration-production.up.railway.app/user/update-current-user",
-        {
-          username: newUsername.trim(),
-        }
+        { username: newUsername.trim() }
       );
       setSuccess("✅ Username changed successfully. Redirecting to login...");
       setTimeout(() => {
         localStorage.removeItem("token");
         navigate("/login", {
-          state: {
-            message: "🔒 Username changed. Please log in again.",
-          },
+          state: { message: "🔒 Username changed. Please log in again." },
         });
       }, 3000);
     } catch (err) {
@@ -123,9 +119,7 @@ const Profile = () => {
       setTimeout(() => {
         localStorage.removeItem("token");
         navigate("/login", {
-          state: {
-            message: "🔒 Password changed. Please log in again.",
-          },
+          state: { message: "🔒 Password changed. Please log in again." },
         });
       }, 3000);
     } catch (err) {
@@ -169,8 +163,8 @@ const Profile = () => {
             />
           ) : (
             <span>
-              {username}{" "}
-              {role === "ROLE_USER" &&  (
+              {username}
+              {role === "ROLE_USER" && (
                 <span className="badge bg-secondary ms-2">{country}</span>
               )}
             </span>
@@ -294,6 +288,16 @@ const Profile = () => {
           </div>
         </div>
       )}
+
+      {/* 🚀 Notifications Navigation Button */}
+      <div className="d-flex justify-content-center mt-4 gap-3">
+        <button
+          className="btn btn-outline-info"
+          onClick={() => navigate("/notifications")}
+        >
+          🔔 Notifications
+        </button>
+      </div>
     </div>
   );
 };
