@@ -91,7 +91,7 @@ const Notifications = () => {
       const approvalMessage = `ACCEPTED: Promote user: ${username} to role: ${role}\nREASON: ${approvalReason}`;
 
       await axios.post(
-        "https://landadministration-production.up.railway.app/notifications/respond",
+        "https://landadministration-production.up.railway.app/user/notifications/respond",
         { message: approvalMessage },
         {
           headers: {
