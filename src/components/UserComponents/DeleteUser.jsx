@@ -15,12 +15,7 @@ const DeleteUser = () => {
         const res = await axios.get(`https://landadministration-production.up.railway.app/user/get-user/${userId}`);
         setUser(res.data);
         setErrorMsg("");
-        const curr = await axios.get(`https://landadministration-production.up.railway.app/user/current-user`);
-        setCurrentUser(curr.data);
-        if(currentUser.id===userId){
-          setErrorMsg("You cannot be deleted, you are the admin.");
-          return;
-        }else{setShowModal(true);}
+        setShowModal(true);
     } catch (err) {
       setUser(null);
       setErrorMsg("User not found with that ID.");
