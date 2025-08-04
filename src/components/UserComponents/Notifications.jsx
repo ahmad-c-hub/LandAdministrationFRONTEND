@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const NotificationsComponent = () => {
+const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -84,4 +84,4 @@ const NotificationsComponent = () => {
   );
 };
 
-export default NotificationsComponent;
+export default Notifications;

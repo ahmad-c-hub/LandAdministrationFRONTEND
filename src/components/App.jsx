@@ -39,6 +39,7 @@ import GitHubPagesFix from "./Authentication,Login & Register/GitHubPagesFix";
 import ManageHistory from "./HistoryComponents/ManageHistory";
 import HistoryByLandId from "./HistoryComponents/HistoryByLandId";
 import HistoryByOwnerId from "./HistoryComponents/HistoryByOwnerId";
+import Notifications from "./UserComponents/Notifications";
 
 
 
