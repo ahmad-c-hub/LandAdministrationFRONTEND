@@ -1,43 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Card, Button, Modal, Spinner } from "react-bootstrap";
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
-  const [currRole, setCurrRole] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [selectedNotification, setSelectedNotification] = useState(null);
-  const [approvalReason, setApprovalReason] = useState("");
-
-  const reasonOptions = [
-    "Trusted contributor",
-    "Strong leadership",
-    "Policy exception",
-    "Long-term contribution",
-    "Recommended by regional lead"
-  ];
+  const [selectedLand, setSelectedLand] = useState(null);
+  const [landLoading, setLandLoading] = useState(false);
 
   useEffect(() => {
-    fetchRole();
     fetchNotifications();
   }, []);
-
-  const fetchRole = async () => {
-    try {
-      const res = await axios.get(
-        "https://landadministration-production.up.railway.app/user/get-role",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setCurrRole(res.data);
-    } catch (err) {
-      console.error("Failed to fetch role");
-    }
-  };
 
   const fetchNotifications = async () => {
     try {
@@ -49,150 +24,119 @@ const Notifications = () => {
           },
         }
       );
-      setNotifications(res.data);
+
+      const fiveDaysAgo = new Date();
+      fiveDaysAgo.setDate(fiveDaysAgo.getDate() - 5);
+
+      const filtered = res.data.filter((n) => new Date(n.issuedAt) >= fiveDaysAgo);
+      setNotifications(filtered);
     } catch (err) {
-      setErrorMsg("Failed to load notifications.");
+      setErrorMsg("❌ Failed to load notifications.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  const markAsRead = async (id) => {
+  const extractLandIdFromMessage = (message) => {
+    const match = message.match(/New Land\s*:\s*(\d+)/);
+    return match ? match[1] : null;
+  };
+
+  const fetchLandById = async (landId) => {
+    setLandLoading(true);
     try {
-      await axios.put(
-        `https://landadministration-production.up.railway.app/notifications/${id}/mark-read`,
-        {},
+      const res = await axios.get(
+        `https://landadministration-production.up.railway.app/land/get/${landId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
-      setNotifications((prev) =>
-        prev.map((n) => (n.id === id ? { ...n, read: true } : n))
-      );
+      setSelectedLand(res.data);
+      setShowModal(true);
     } catch (err) {
-      console.error("Error marking notification as read.");
+      alert("Failed to fetch land details.");
+    } finally {
+      setLandLoading(false);
     }
   };
 
-  const openApprovalModal = (notification) => {
-    setSelectedNotification(notification);
-    setApprovalReason("");
-    setShowModal(true);
-  };
-
-  const handleApprovalSubmit = async () => {
-    if (!approvalReason || !selectedNotification) return;
-
-    try {
-      const messageLines = selectedNotification.message.split("\n")[0]; // REQUEST line
-      const username = messageLines.split("user:")[1].split("to")[0].trim();
-      const role = messageLines.split("role:")[1].trim();
-
-      const approvalMessage = `ACCEPTED: Promote user: ${username} to role: ${role}\nREASON: ${approvalReason}`;
-
-      await axios.post(
-        "https://landadministration-production.up.railway.app/user/notifications/respond",
-        { message: approvalMessage },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      setShowModal(false);
-      fetchNotifications();
-    } catch (err) {
-      console.error("Failed to approve request:", err);
-      alert("Approval failed.");
+  const handleViewLandDetails = (message) => {
+    const landId = extractLandIdFromMessage(message);
+    if (landId) {
+      fetchLandById(landId);
     }
   };
 
   return (
     <div className="container mt-4">
-      <h3>Notifications</h3>
-      {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
-      {notifications.length === 0 && <p>No notifications yet.</p>}
+      <h3>🔔 Recent Notifications (Last 5 Days)</h3>
 
-      <ul className="list-group">
-        {notifications.map((n) => (
-          <li
-            key={n.id}
-            className={`list-group-item d-flex justify-content-between align-items-start ${
-              n.read ? "" : "list-group-item-warning"
-            }`}
-          >
-            <div>
-              <strong>{n.title}</strong>
-              <p style={{ whiteSpace: "pre-wrap", marginBottom: "0.4rem" }}>
-                {n.message}
-              </p>
-              <small>
-                From: User #{n.senderId} •{" "}
-                {new Date(n.issuedAt).toLocaleString()}
-              </small>
-              <div className="mt-2 d-flex gap-2">
-                {!n.read && (
-                  <button
-                    className="btn btn-sm btn-outline-success"
-                    onClick={() => markAsRead(n.id)}
-                  >
-                    Mark as Read
-                  </button>
-                )}
-
-                {currRole === "ROLE_ADMIN" &&
-                  n.message.startsWith("REQUEST: Promote user:") && (
-                    <button
-                      className="btn btn-sm btn-outline-primary"
-                      onClick={() => openApprovalModal(n)}
+      {loading ? (
+        <div className="text-center mt-4">
+          <Spinner animation="border" variant="primary" />
+        </div>
+      ) : errorMsg ? (
+        <div className="alert alert-danger">{errorMsg}</div>
+      ) : notifications.length === 0 ? (
+        <p className="text-muted">No recent notifications.</p>
+      ) : (
+        <div className="d-flex flex-column gap-3 mt-3">
+          {notifications.map((n) => (
+            <Card key={n.id} className="shadow-sm">
+              <Card.Body>
+                <div className="d-flex justify-content-between align-items-start">
+                  <div>
+                    <Card.Title className="mb-1">{n.title}</Card.Title>
+                    <Card.Text className="mb-1" style={{ whiteSpace: "pre-wrap" }}>
+                      {n.message}
+                    </Card.Text>
+                    <Card.Subtitle className="text-muted small">
+                      From: User #{n.senderId} •{" "}
+                      {new Date(n.issuedAt).toLocaleString()}
+                    </Card.Subtitle>
+                  </div>
+                  {n.message.includes("New Land") && (
+                    <Button
+                      size="sm"
+                      variant="info"
+                      className="ms-3"
+                      onClick={() => handleViewLandDetails(n.message)}
                     >
-                      ✅ Accept Request
-                    </button>
+                      View Land Details
+                    </Button>
                   )}
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+                </div>
+              </Card.Body>
+            </Card>
+          ))}
+        </div>
+      )}
 
-      {/* Approval Modal */}
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      {/* Land Details Modal */}
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Approve Role Change</Modal.Title>
+          <Modal.Title>🏞️ Land Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>
-            You are about to approve:
-            <br />
-            <strong>{selectedNotification?.message.split("\n")[0]}</strong>
-          </p>
-          <Form.Group className="mt-3">
-            <Form.Label>Reason for Approval</Form.Label>
-            <Form.Select
-              value={approvalReason}
-              onChange={(e) => setApprovalReason(e.target.value)}
-              required
-            >
-              <option value="">-- Select a reason --</option>
-              {reasonOptions.map((r, idx) => (
-                <option key={idx} value={r}>
-                  {r}
-                </option>
-              ))}
-            </Form.Select>
-          </Form.Group>
+          {landLoading || !selectedLand ? (
+            <div className="text-center my-4">
+              <Spinner animation="border" variant="primary" />
+            </div>
+          ) : (
+            <>
+              <p><strong>ID:</strong> {selectedLand.id}</p>
+              <p><strong>Location:</strong> {selectedLand.location}</p>
+              <p><strong>Coordinates</strong> {selectedLand.locationCoordinates}</p>
+              <p><strong>Usage Type:</strong> {selectedLand.usageType}</p>
+              <p><strong>Surface Area:</strong> {selectedLand.surfaceArea}</p>
+            </>
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowModal(false)}>
-            Cancel
-          </Button>
-          <Button
-            variant="primary"
-            onClick={handleApprovalSubmit}
-            disabled={!approvalReason}
-          >
-            ✅ Confirm Approval
+            Close
           </Button>
         </Modal.Footer>
       </Modal>
