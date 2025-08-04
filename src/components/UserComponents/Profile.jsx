@@ -201,7 +201,15 @@ const Profile = () => {
             >
               🔒 Change Password
             </button>
+            {/* 🚀 Notifications Navigation Button */}
+        <button
+          className="btn btn-outline-info"
+          onClick={() => navigate("/notifications")}
+        >
+          🔔 Notifications
+        </button>
           </div>
+          
         )}
       </div>
 
@@ -288,16 +296,6 @@ const Profile = () => {
           </div>
         </div>
       )}
-
-      {/* 🚀 Notifications Navigation Button */}
-      <div className="d-flex justify-content-center mt-4 gap-3">
-        <button
-          className="btn btn-outline-info"
-          onClick={() => navigate("/notifications")}
-        >
-          🔔 Notifications
-        </button>
-      </div>
     </div>
   );
 };
