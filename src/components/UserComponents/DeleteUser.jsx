@@ -31,7 +31,7 @@ const DeleteUser = () => {
       setUser(null);
     } catch (err) {
       const msg = err?.response?.data;
-      if (typeof msg === "string") setErrorMessage(msg);
+      if (typeof msg === "string") setErrorMsg(msg);
       else if (msg?.error) setErrorMsg(msg.error);
       else setErrorMsg("An unknown error occurred.");
       setShowModal(false);
