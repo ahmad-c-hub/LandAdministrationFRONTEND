@@ -93,7 +93,7 @@ const Notifications = () => {
                       {n.message}
                     </Card.Text>
                     <Card.Subtitle className="text-muted small">
-                      From: User #{n.senderId} •{" "}
+                      From: System •{" "}
                       {new Date(n.issuedAt).toLocaleString()}
                     </Card.Subtitle>
                   </div>
