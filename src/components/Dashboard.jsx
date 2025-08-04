@@ -86,7 +86,7 @@ const Dashboard = () => {
 };
 
 const StatCard = ({ title, count, gradient }) => (
-  <div className="col-6 col-md-6 col-lg-3">
+  <div className="col">
     <div className="card text-white shadow text-center border-0" style={{ background: gradient, borderRadius: "1rem" }}>
       <div className="card-body p-3">
         <h6 className="card-title fs-6 fw-bold">{title}</h6>
