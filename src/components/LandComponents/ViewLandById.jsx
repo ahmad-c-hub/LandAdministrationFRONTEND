@@ -291,6 +291,7 @@ const ViewLandById = () => {
 )}
 
 {/* Delete Confirm Modal */}
+{land && (
 <Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)} centered>
   <Modal.Header closeButton>
     <Modal.Title>Confirm Delete</Modal.Title>
@@ -303,8 +304,11 @@ const ViewLandById = () => {
     <Button variant="danger" onClick={deleteLand}>Delete</Button>
   </Modal.Footer>
 </Modal>
+)}
 
 {/* Transfer Ownership Modal */}
+
+{land && (
 <Modal show={showTransferModal} onHide={() => setShowTransferModal(false)} centered>
   <Modal.Header closeButton>
     <Modal.Title>Transfer Ownership</Modal.Title>
@@ -332,8 +336,10 @@ const ViewLandById = () => {
     )}
   </Modal.Footer>
 </Modal>
+)}
 
 {/* Unassign Owner Modal */}
+{land && (
 <Modal show={showUnassignConfirmModal} onHide={() => setShowUnassignConfirmModal(false)} centered>
   <Modal.Header closeButton>
     <Modal.Title>Confirm Unassign</Modal.Title>
@@ -346,6 +352,7 @@ const ViewLandById = () => {
     <Button variant="warning" onClick={unassignOwner}>Unassign</Button>
   </Modal.Footer>
 </Modal>
+)}
 
     </div>
   );
