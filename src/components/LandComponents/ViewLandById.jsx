@@ -256,7 +256,83 @@ const ViewLandById = () => {
         </Modal.Footer>
       </Modal>
 
-      {/* other modals remain unchanged — Edit, Delete, Transfer, Unassign */}
+      {/* Edit Modal */}
+<Modal show={showEditModal} onHide={() => setShowEditModal(false)} centered>
+  <Modal.Header closeButton>
+    <Modal.Title>Edit Usage Type</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <select className="form-control" name="usageType" value={land.usageType} onChange={handleChange}>
+      <option value="">Select usage type</option>
+      <option value="Agricultural">Agricultural</option>
+      <option value="Residential">Residential</option>
+      <option value="Farming">Farming</option>
+      <option value="Commercial">Commercial</option>
+    </select>
+  </Modal.Body>
+  <Modal.Footer>
+    <Button variant="secondary" onClick={() => setShowEditModal(false)}>Cancel</Button>
+    <Button variant="primary" onClick={land.usageType !== originalUsageType ? handleEditSubmit : displayEditError}>Save</Button>
+  </Modal.Footer>
+</Modal>
+
+{/* Delete Confirm Modal */}
+<Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)} centered>
+  <Modal.Header closeButton>
+    <Modal.Title>Confirm Delete</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    Are you sure you want to delete land with ID {land.id}?
+  </Modal.Body>
+  <Modal.Footer>
+    <Button variant="secondary" onClick={() => setShowConfirmModal(false)}>Cancel</Button>
+    <Button variant="danger" onClick={deleteLand}>Delete</Button>
+  </Modal.Footer>
+</Modal>
+
+{/* Transfer Ownership Modal */}
+<Modal show={showTransferModal} onHide={() => setShowTransferModal(false)} centered>
+  <Modal.Header closeButton>
+    <Modal.Title>Transfer Ownership</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <input
+      type="number"
+      placeholder="Enter new owner ID"
+      className="form-control"
+      value={newOwnerId}
+      onChange={(e) => setNewOwnerId(e.target.value)}
+    />
+    {newOwnerError && <div className="text-danger mt-2">{newOwnerError}</div>}
+    {newOwnerDetails && (
+      <div className="mt-2">
+        <strong>New Owner Name:</strong> {newOwnerDetails.fullName}
+      </div>
+    )}
+  </Modal.Body>
+  <Modal.Footer>
+    <Button variant="secondary" onClick={() => setShowTransferModal(false)}>Cancel</Button>
+    <Button variant="info" onClick={handleTransferOwnership}>Find Owner</Button>
+    {newOwnerDetails && (
+      <Button variant="success" onClick={confirmTransfer}>Confirm Transfer</Button>
+    )}
+  </Modal.Footer>
+</Modal>
+
+{/* Unassign Owner Modal */}
+<Modal show={showUnassignConfirmModal} onHide={() => setShowUnassignConfirmModal(false)} centered>
+  <Modal.Header closeButton>
+    <Modal.Title>Confirm Unassign</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    Are you sure you want to unassign the current owner from land ID {land.id}?
+  </Modal.Body>
+  <Modal.Footer>
+    <Button variant="secondary" onClick={() => setShowUnassignConfirmModal(false)}>Cancel</Button>
+    <Button variant="warning" onClick={unassignOwner}>Unassign</Button>
+  </Modal.Footer>
+</Modal>
+
     </div>
   );
 };
