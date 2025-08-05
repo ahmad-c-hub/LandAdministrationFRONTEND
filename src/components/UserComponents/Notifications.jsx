@@ -31,7 +31,7 @@ const Notifications = () => {
       );
 
       const fiveDaysAgo = new Date();
-      fiveDaysAgo.setDate(fiveDaysAgo.getDate());
+      fiveDaysAgo.setDate(fiveDaysAgo.getDate()-1);
 
       const filtered = res.data.filter((n) => new Date(n.issuedAt) >= fiveDaysAgo);
       setNotifications(filtered);
