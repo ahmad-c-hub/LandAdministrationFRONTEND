@@ -93,24 +93,33 @@ const ViewLandById = () => {
   };
 
   const handleTransferOwnership = async () => {
-    try {
-      if (land.currentOwner && parseInt(newOwnerId) === land.currentOwner.id) {
-        setNewOwnerError("⚠️ Cannot transfer ownership to the current owner.");
-        setNewOwnerDetails(null);
-        setNewOwnerId("");
-        setShowTransferModal(false);
-        return;
-      }
-
-      const response = await axios.get(`https://landadministration-production.up.railway.app/land-owner/${newOwnerId}`);
-      setNewOwnerDetails(response.data);
-      setNewOwnerError("");
-    } catch (err) {
-      console.error(err);
+  try {
+    if (isNaN(parseInt(newOwnerId))) {
       setNewOwnerDetails(null);
-      setNewOwnerError("❌ No owner found with this ID.");
+      setNewOwnerError("Please enter a valid ID.");
+      return;
     }
-  };
+
+    if (land.currentOwner && parseInt(newOwnerId) === land.currentOwner.id) {
+      setNewOwnerError("⚠️ Cannot transfer ownership to the current owner.");
+      setNewOwnerDetails(null);
+      setNewOwnerId("");
+      setShowTransferModal(false);
+      return;
+    }
+
+    const response = await axios.get(
+      `https://landadministration-production.up.railway.app/land-owner/${newOwnerId}`
+    );
+    setNewOwnerDetails(response.data);
+    setNewOwnerError("");
+  } catch (err) {
+    console.error(err);
+    setNewOwnerDetails(null);
+    setNewOwnerError("❌ No owner found with this ID.");
+  }
+};
+
 
   const confirmTransfer = async () => {
     try {
