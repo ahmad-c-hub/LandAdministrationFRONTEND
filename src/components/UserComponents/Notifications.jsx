@@ -31,7 +31,7 @@ const Notifications = () => {
       );
 
       const fiveDaysAgo = new Date();
-      fiveDaysAgo.setDate(fiveDaysAgo.getDate() - 5);
+      fiveDaysAgo.setDate(fiveDaysAgo.getDate());
 
       const filtered = res.data.filter((n) => new Date(n.issuedAt) >= fiveDaysAgo);
       setNotifications(filtered);
@@ -144,7 +144,7 @@ const extractOldOwnerIdFromMessage = (message) => {
 
   return (
     <div className="container mt-4">
-      <h3>🔔 Recent Notifications (Last 5 Days)</h3>
+      <h3>🔔 Recent Notifications (Today)</h3>
 
       {loading ? (
         <div className="text-center mt-4">

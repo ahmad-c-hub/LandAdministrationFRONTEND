@@ -150,68 +150,74 @@ const Profile = () => {
         </div>
       )}
 
-      <div className="card p-3 shadow-sm mb-4 d-flex align-items-center flex-row justify-content-between">
-        <div className="d-flex align-items-center w-100">
-          <strong className="me-2">Username:</strong>
-          {editMode ? (
-            <input
-              type="text"
-              value={newUsername}
-              onChange={(e) => setNewUsername(e.target.value)}
-              className="form-control"
-              style={{ maxWidth: "300px" }}
-            />
-          ) : (
-            <span>
-              {username}
-              {role === "ROLE_USER" && (
-                <span className="badge bg-secondary ms-2">{country}</span>
-              )}
-            </span>
-          )}
-        </div>
+      <div className="card p-3 shadow-sm mb-4">
+  <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
 
-        {editMode ? (
-          <div className="ms-3 d-flex">
-            <button className="btn btn-success me-2" onClick={handleUsernameChange}>
-              Save
-            </button>
-            <button
-              className="btn btn-secondary"
-              onClick={() => {
-                setEditMode(false);
-                setError("");
-                setNewUsername(username);
-              }}
-            >
-              Cancel
-            </button>
-          </div>
-        ) : (
-          <div className="d-flex ms-3">
-            <button
-              className="btn btn-outline-primary me-2"
-              onClick={() => setEditMode(true)}
-            >
-              ✏️ Edit
-            </button>
-            <button
-              className="btn btn-outline-danger"
-              onClick={() => setShowPasswordModal(true)}
-            >
-              🔒 Change Password
-            </button>
-            {/* 🚀 Notifications Navigation Button */}
-        <button
-          className="btn btn-outline-info"
-          onClick={() => navigate("/notifications")}
-        >
-          🔔 Notifications
-        </button>
-          </div>
-          
-        )}
-      </div>
+    {/* Left Side - Username Display/Input */}
+    <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center w-100">
+      <strong className="me-2">Username:</strong>
+      {editMode ? (
+        <input
+          type="text"
+          value={newUsername}
+          onChange={(e) => setNewUsername(e.target.value)}
+          className="form-control mt-2 mt-md-0"
+          style={{ maxWidth: "300px" }}
+        />
+      ) : (
+        <span>
+          {username}
+          {role === "ROLE_USER" && (
+            <span className="badge bg-secondary ms-2">{country}</span>
+          )}
+        </span>
+      )}
+    </div>
+
+    {/* Right Side - Action Buttons */}
+    <div className="d-flex flex-wrap gap-2">
+      {editMode ? (
+        <>
+          <button className="btn btn-success" onClick={handleUsernameChange}>
+            Save
+          </button>
+          <button
+            className="btn btn-secondary"
+            onClick={() => {
+              setEditMode(false);
+              setError("");
+              setNewUsername(username);
+            }}
+          >
+            Cancel
+          </button>
+        </>
+      ) : (
+        <>
+          <button
+            className="btn btn-outline-primary"
+            onClick={() => setEditMode(true)}
+          >
+            ✏️ Edit
+          </button>
+          <button
+            className="btn btn-outline-danger"
+            onClick={() => setShowPasswordModal(true)}
+          >
+            🔒 Change Password
+          </button>
+          <button
+            className="btn btn-outline-info"
+            onClick={() => navigate("/notifications")}
+          >
+            🔔 Notifications
+          </button>
+        </>
+      )}
+    </div>
+  </div>
+</div>
+
 
       <div className="card p-3 shadow-sm">
         <h5>User Logs</h5>
