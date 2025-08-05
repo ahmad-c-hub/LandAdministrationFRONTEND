@@ -65,7 +65,7 @@ const Dashboard = () => {
       <div className="row g-4">
         <StatCard title="Total Land Records" count={stats.totalLands} gradient="linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)" />
         <StatCard title="Registered Owners" count={stats.totalOwners} gradient="linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)" />
-        <StatCard title="Unassigned Lands" count={stats.unassignedLands} gradient="linear-gradient(135deg, #fddb92 0%, #d1fdff 100%)" />
+        <StatCard title="Vacant Lands" count={stats.unassignedLands} gradient="linear-gradient(135deg, #fddb92 0%, #d1fdff 100%)" />
         <StatCard title="Ownership History Records" count={stats.totalOwnershipHistory} gradient="linear-gradient(135deg, #d3cce3 0%, #e9e4f0 100%)" />
         <StatCard title="Farming Lands" count={stats.farmingLands} gradient="linear-gradient(135deg, #f6d365 0%, #fda085 100%)" />
         <StatCard title="Agricultural Lands" count={stats.agriculturalLands} gradient="linear-gradient(135deg, #c2e9fb 0%, #a1c4fd 100%)" />
