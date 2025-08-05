@@ -42,7 +42,27 @@ const Notifications = () => {
     }
   };
 
+  const extractLandIdFromVacantMessage = (message) => {
+    const match = message.match(/Land with id\s*\{(\d+)\}/);
+    return match ? parseInt(match[1], 10) : null;
+  };
+
+  const extractLandIdFromOwnershipMessage = (message) => {
+    const match = message.match(/New Ownership for Land\s*:\s*(\d+)/);
+    return match ? parseInt(match[1], 10) : null;
+  };
+
+
+
+
+
   const extractLandIdFromMessage = (message) => {
+    if(message.includes("New Ownership")){
+      return extractLandIdFromOwnershipMessage(message);
+    }
+    if(message.includes("Vacant")){
+      return extractLandIdFromVacantMessage(message);
+    }
     const match = message.match(/New Land\s*:\s*(\d+)/);
     return match ? match[1] : null;
   };
