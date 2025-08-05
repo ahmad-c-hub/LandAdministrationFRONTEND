@@ -45,32 +45,6 @@ const ManageHistory = () => {
           👤 View History by Owner ID
         </button>
       </div>
-
-      <div className="p-4 mb-3 rounded" style={{ backgroundColor: "#f8d7da" }}>
-        <p className="mb-3">⚠️ Permanently delete all ownership history records from the system.</p>
-        <button className="btn btn-danger" onClick={() => setShowModal(true)}>
-          🗑️ Delete All History
-        </button>
-
-        {successMsg && <Alert variant="success" className="mt-3">{successMsg}</Alert>}
-
-        <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-          <Modal.Header closeButton>
-            <Modal.Title>Confirm Deletion</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            Are you sure you want to delete <strong>all</strong> ownership history records? This action cannot be undone.
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShowModal(false)}>
-              Cancel
-            </Button>
-            <Button variant="danger" onClick={handleDelete}>
-              Yes, Delete All
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </div>
     </div>
   );
 };
