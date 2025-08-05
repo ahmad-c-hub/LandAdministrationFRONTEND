@@ -31,7 +31,7 @@ const Notifications = () => {
       );
 
       const fiveDaysAgo = new Date();
-      fiveDaysAgo.setDate(fiveDaysAgo.getDate()-1);
+      fiveDaysAgo.setHours(0,0,0,0);
 
       const filtered = res.data.filter((n) => new Date(n.issuedAt) >= fiveDaysAgo);
       setNotifications(filtered);
@@ -249,7 +249,7 @@ const extractOldOwnerIdFromMessage = (message) => {
         {/* New Owner Details Modal */}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowNewOwnerModal(false)}>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
             Close
           </Button>
         </Modal.Footer>
