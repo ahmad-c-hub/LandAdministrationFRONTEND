@@ -62,7 +62,7 @@ const Dashboard = () => {
     <div className="container py-5">
       <h2 className="text-center mb-5 fw-bold">Land Administration Dashboard</h2>
 
-      <div className="row row-cols-2 row-cols-md-4 g-3">
+      <div className="row g-4">
         <StatCard title="Total Land Records" count={stats.totalLands} gradient="linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)" />
         <StatCard title="Registered Owners" count={stats.totalOwners} gradient="linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)" />
         <StatCard title="Unassigned Lands" count={stats.unassignedLands} gradient="linear-gradient(135deg, #fddb92 0%, #d1fdff 100%)" />
@@ -86,8 +86,8 @@ const Dashboard = () => {
 };
 
 const StatCard = ({ title, count, gradient }) => (
-  <div className="col d-flex">
-    <div className="card text-white shadow text-center border-0 flex-fill" style={{ background: gradient, borderRadius: "1rem" }}>
+  <div className="col-6 col-md-6 col-lg-3">
+    <div className="card text-white shadow text-center border-0" style={{ background: gradient, borderRadius: "1rem" }}>
       <div className="card-body p-3">
         <h6 className="card-title fs-6 fw-bold">{title}</h6>
         <h2 className="fw-bold">{count}</h2>

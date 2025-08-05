@@ -7,8 +7,13 @@ const Notifications = () => {
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showOldOwnerModal, setShowOldOwnerModal] = useState(false);
+  const [showNewOwnerModal, setShowNewOwnerModal] = useState(false);
   const [selectedLand, setSelectedLand] = useState(null);
+  const [oldOwner, setOldOwner] = useState(null);
+  const [newOwner, setNewOwner] = useState(null);
   const [landLoading, setLandLoading] = useState(false);
+  const [oldOwnerIdStated, setOldOwnerIdStated] = useState()
 
   useEffect(() => {
     fetchNotifications();
@@ -42,6 +47,22 @@ const Notifications = () => {
     return match ? match[1] : null;
   };
 
+  const extractNewOwnerIdFromMessage = (message) => {
+  const match = message.match(/New Owner\s*:\s*(\d+)/);
+  return match ? parseInt(match[1], 10) : null;
+};
+
+const extractOldOwnerIdFromMessage = (message) => {
+  const match = message.match(/Old Owner\s*:\s*(\w+)/);
+  if (!match) return null;
+
+  if (match[1] === 'N/A') {
+    return 'N/A';
+  }
+
+  return parseInt(match[1], 10);
+};
+
   const fetchLandById = async (landId) => {
     setLandLoading(true);
     try {
@@ -62,12 +83,64 @@ const Notifications = () => {
     }
   };
 
+   const fetchOldOwnerById = async (ownerId) => {
+    try {
+      const res = await axios.get(
+        `https://landadministration-production.up.railway.app/land-owner/${ownerId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setOldOwner(res.data);
+      setShowOldOwnerModal(true);
+    } catch (err) {
+      alert("Failed to fetch owner details.");
+    }
+  };
+  
+  const fetchNewOwnerById = async (ownerId) => {
+    try {
+      const res = await axios.get(
+        `https://landadministration-production.up.railway.app/land-owner/${ownerId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setNewOwner(res.data);
+      setShowNewOwnerModal(true);
+    } catch (err) {
+      alert("Failed to fetch owner details.");
+    }
+  };
+  
+
+
   const handleViewLandDetails = (message) => {
     const landId = extractLandIdFromMessage(message);
     if (landId) {
       fetchLandById(landId);
     }
   };
+
+  const handleViewOldOwnerDetails = (message) => {
+    const ownerId = extractOldOwnerIdFromMessage(message);
+    if(ownerId!=='N/A'){
+      fetchOldOwnerById(ownerId);
+    }
+  }
+
+  const handleViewNewOwnerDetails = (message) => {
+    const ownerId = extractNewOwnerIdFromMessage(message);
+    if(ownerId){
+      fetchNewOwnerById(ownerId);
+    }
+  }
+
+  
 
   return (
     <div className="container mt-4">
@@ -107,6 +180,27 @@ const Notifications = () => {
                       View Land Details
                     </Button>
                   )}
+                  {n.message.includes("New Ownership for Land") && (
+                    <Button
+                      size="sm"
+                      variant="info"
+                      className="ms-3"
+                      onClick={() => handleViewNewOwnerDetails(n.message)}
+                    >
+                      View New Owner Details
+                    </Button>
+                  )}
+                  {!n.message.includes("N/A") && (
+                    <Button
+                      size="sm"
+                      variant="info"
+                      className="ms-3"
+                      onClick={() => handleViewOldOwnerDetails(n.message)}
+                    >
+                      View Old Owner Details
+                    </Button>
+                  )}
+
                 </div>
               </Card.Body>
             </Card>
@@ -133,9 +227,63 @@ const Notifications = () => {
               <p><strong>Surface Area:</strong> {selectedLand.surfaceArea}</p>
             </>
           )}
+        {/* New Owner Details Modal */}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
+          <Button variant="secondary" onClick={() => setShowNewOwnerModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={showNewOwnerModal} onHide={() => setShowNewOwnerModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>New Owner Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {!newOwner? (
+            <div className="text-center my-4">
+              <Spinner animation="border" variant="primary" />
+            </div>
+          ) : (
+            <>
+              <p><strong>Name:</strong> {newOwner.fullName}</p>
+            <p ><strong>ID:</strong> {newOwner.id}</p>
+            <p><strong>Phone:</strong> {newOwner.phoneNumber}</p>
+            <p><strong>Email:</strong> {newOwner.emailAddress}</p>
+            <p><strong>Number of Lands:</strong> {newOwner.numberOfLands}</p>
+            <p><strong>Age:</strong> {newOwner.age}</p>
+            </>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowNewOwnerModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* Old Owner Details Modal */}
+      <Modal show={showOldOwnerModal} onHide={() => setShowOldOwnerModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Old Owner Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {!oldOwner ? (
+            <div className="text-center my-4">
+              <Spinner animation="border" variant="primary" />
+            </div>
+          ) : (
+            <>
+              <p><strong>Name:</strong> {oldOwner.fullName}</p>
+            <p ><strong>ID:</strong> {oldOwner.id}</p>
+            <p><strong>Phone:</strong> {oldOwner.phoneNumber}</p>
+            <p><strong>Email:</strong> {oldOwner.emailAddress}</p>
+            <p><strong>Number of Lands:</strong> {oldOwner.numberOfLands}</p>
+            <p><strong>Age:</strong> {oldOwner.age}</p>
+            </>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowOldOwnerModal(false)}>
             Close
           </Button>
         </Modal.Footer>
