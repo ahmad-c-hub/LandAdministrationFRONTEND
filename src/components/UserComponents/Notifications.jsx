@@ -170,36 +170,35 @@ const extractOldOwnerIdFromMessage = (message) => {
                       {new Date(n.issuedAt).toLocaleString()}
                     </Card.Subtitle>
                   </div>
-                  {n.message.includes("New Land") && (
-                    <Button
-                      size="sm"
-                      variant="info"
-                      className="ms-3"
-                      onClick={() => handleViewLandDetails(n.message)}
-                    >
-                      View Land Details
-                    </Button>
-                  )}
-                  {n.message.includes("New Ownership for Land") && (
-                    <Button
-                      size="sm"
-                      variant="info"
-                      className="ms-3"
-                      onClick={() => handleViewNewOwnerDetails(n.message)}
-                    >
-                      View New Owner Details
-                    </Button>
-                  )}
-                  {n.message.includes("New Ownership for Land") && !n.message.includes("N/A") && (
-                    <Button
-                      size="sm"
-                      variant="info"
-                      className="ms-3"
-                      onClick={() => handleViewOldOwnerDetails(n.message)}
-                    >
-                      View Old Owner Details
-                    </Button>
-                  )}
+                  <div className="d-flex flex-wrap gap-2 mt-2">
+  {n.message.includes("New Land") && (
+    <Button
+      size="sm"
+      variant="info"
+      onClick={() => handleViewLandDetails(n.message)}
+    >
+      View Land Details
+    </Button>
+  )}
+  {n.message.includes("New Ownership for Land") && (
+    <Button
+      size="sm"
+      variant="primary"
+      onClick={() => handleViewNewOwnerDetails(n.message)}
+    >
+      View New Owner Details
+    </Button>
+  )}
+  {n.message.includes("New Ownership for Land") && !n.message.includes("N/A") && (
+    <Button
+      size="sm"
+      variant="secondary"
+      onClick={() => handleViewOldOwnerDetails(n.message)}
+    >
+      View Old Owner Details
+    </Button>
+  )}
+</div>
 
                 </div>
               </Card.Body>
