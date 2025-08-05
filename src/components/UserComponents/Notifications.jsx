@@ -190,7 +190,7 @@ const extractOldOwnerIdFromMessage = (message) => {
                       View New Owner Details
                     </Button>
                   )}
-                  {!n.message.includes("N/A") && (
+                  {n.message.includes("New Ownership for Land") && !n.message.includes("N/A") && (
                     <Button
                       size="sm"
                       variant="info"
