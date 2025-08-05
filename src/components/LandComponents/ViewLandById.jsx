@@ -32,7 +32,7 @@ const ViewLandById = () => {
           setRole(response.data);
           setError("");
         })
-      })
+      }, []);
 
   const navigate = useNavigate();
 
