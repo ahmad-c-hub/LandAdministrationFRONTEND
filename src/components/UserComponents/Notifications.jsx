@@ -171,7 +171,7 @@ const extractOldOwnerIdFromMessage = (message) => {
                     </Card.Subtitle>
                   </div>
                   <div className="d-flex flex-wrap gap-2 mt-2">
-  {n.message.includes("New Land") && (
+  {n.message.includes("Land") && (
     <Button
       size="sm"
       variant="info"
