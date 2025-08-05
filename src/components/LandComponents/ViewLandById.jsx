@@ -257,24 +257,38 @@ const ViewLandById = () => {
       </Modal>
 
       {/* Edit Modal */}
-<Modal show={showEditModal} onHide={() => setShowEditModal(false)} centered>
-  <Modal.Header closeButton>
-    <Modal.Title>Edit Usage Type</Modal.Title>
-  </Modal.Header>
-  <Modal.Body>
-    <select className="form-control" name="usageType" value={land.usageType} onChange={handleChange}>
-      <option value="">Select usage type</option>
-      <option value="Agricultural">Agricultural</option>
-      <option value="Residential">Residential</option>
-      <option value="Farming">Farming</option>
-      <option value="Commercial">Commercial</option>
-    </select>
-  </Modal.Body>
-  <Modal.Footer>
-    <Button variant="secondary" onClick={() => setShowEditModal(false)}>Cancel</Button>
-    <Button variant="primary" onClick={land.usageType !== originalUsageType ? handleEditSubmit : displayEditError}>Save</Button>
-  </Modal.Footer>
-</Modal>
+{land && (
+  <Modal show={showEditModal} onHide={() => setShowEditModal(false)} centered>
+    <Modal.Header closeButton>
+      <Modal.Title>Edit Usage Type</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+      <select
+        className="form-control"
+        name="usageType"
+        value={land.usageType || ""}
+        onChange={handleChange}
+      >
+        <option value="">Select usage type</option>
+        <option value="Agricultural">Agricultural</option>
+        <option value="Residential">Residential</option>
+        <option value="Farming">Farming</option>
+        <option value="Commercial">Commercial</option>
+      </select>
+    </Modal.Body>
+    <Modal.Footer>
+      <Button variant="secondary" onClick={() => setShowEditModal(false)}>
+        Cancel
+      </Button>
+      <Button
+        variant="primary"
+        onClick={land.usageType !== originalUsageType ? handleEditSubmit : displayEditError}
+      >
+        Save
+      </Button>
+    </Modal.Footer>
+  </Modal>
+)}
 
 {/* Delete Confirm Modal */}
 <Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)} centered>
