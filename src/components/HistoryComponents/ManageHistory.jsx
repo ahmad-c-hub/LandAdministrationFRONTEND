@@ -10,7 +10,7 @@ const ManageHistory = () => {
 
   const handleDelete = () => {
     axios
-      .delete('https://landadministration-production.up.railway.app/ownership-history/delete-all')
+      .delete('http://localhost:8080/ownership-history/delete-all')
       .then((response) => {
         setSuccessMsg(response.data);
         setShowModal(false);

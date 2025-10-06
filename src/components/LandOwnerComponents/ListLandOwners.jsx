@@ -10,14 +10,14 @@ const ListLandOwners = () => {
 
   useEffect(() =>{
     axios
-        .get("https://landadministration-production.up.railway.app/user/get-role")
+        .get("http://localhost:8080/user/get-role")
         .then((res) => setRole(res.data))
         .catch((err) => console.error("Failed to get role:", err));
   });
 
   useEffect(() => {
     axios
-      .get(`https://landadministration-production.up.railway.app/land-owner/owners?page=${page}&size=10`)
+      .get(`http://localhost:8080/land-owner/owners?page=${page}&size=10`)
       .then((response) => {
         setLandOwners(response.data.content);
         setTotalPages(response.data.totalPages);

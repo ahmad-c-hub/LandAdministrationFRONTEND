@@ -13,7 +13,7 @@ const Header = () => {
     if (token) {
       // Fetch user role
       axios
-        .get("https://landadministration-production.up.railway.app/user/get-role", {
+        .get("http://localhost:8080/user/get-role", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -23,7 +23,7 @@ const Header = () => {
 
       // Fetch current country
       axios
-        .get("https://landadministration-production.up.railway.app/user/get-country", {
+        .get("http://localhost:8080/user/get-country", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -41,7 +41,7 @@ const Header = () => {
 
   const handleLogoutClick = async () => {
     try {
-      await fetch("https://landadministration-production.up.railway.app/user/logout", {
+      await fetch("http://localhost:8080/user/logout", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -62,7 +62,7 @@ const Header = () => {
 
     try {
       await axios.put(
-        `https://landadministration-production.up.railway.app/user/set-country?country=${encodeURIComponent(paramToSend)}`,
+        `http://localhost:8080/user/set-country?country=${encodeURIComponent(paramToSend)}`,
         null,
         {
           headers: {

@@ -22,7 +22,7 @@ const Notifications = () => {
   const fetchNotifications = async () => {
     try {
       const res = await axios.get(
-        "https://landadministration-production.up.railway.app/notifications/my",
+        "http://localhost:8080/notifications/my",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -87,7 +87,7 @@ const extractOldOwnerIdFromMessage = (message) => {
     setLandLoading(true);
     try {
       const res = await axios.get(
-        `https://landadministration-production.up.railway.app/land/get/${landId}`,
+        `http://localhost:8080/land/get/${landId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -106,7 +106,7 @@ const extractOldOwnerIdFromMessage = (message) => {
    const fetchOldOwnerById = async (ownerId) => {
     try {
       const res = await axios.get(
-        `https://landadministration-production.up.railway.app/land-owner/${ownerId}`,
+        `http://localhost:8080/land-owner/${ownerId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -123,7 +123,7 @@ const extractOldOwnerIdFromMessage = (message) => {
   const fetchNewOwnerById = async (ownerId) => {
     try {
       const res = await axios.get(
-        `https://landadministration-production.up.railway.app/land-owner/${ownerId}`,
+        `http://localhost:8080/land-owner/${ownerId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

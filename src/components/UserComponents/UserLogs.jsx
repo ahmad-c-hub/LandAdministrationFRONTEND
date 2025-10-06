@@ -14,7 +14,7 @@ const UserLogs = () => {
     setLoading(true);
     setError("");
     try {
-      const res = await axios.get(`https://landadministration-production.up.railway.app/user-log/records?page=${page}&size=${size}`);
+      const res = await axios.get(`http://localhost:8080/user-log/records?page=${page}&size=${size}`);
       setLogs(res.data.content);
       setTotalPages(res.data.totalPages);
     } catch (err) {

@@ -16,7 +16,7 @@ const SetUserRole = () => {
     setError("");
 
     try {
-      const res = await axios.put(`https://landadministration-production.up.railway.app/user/set-role/${userId}/${role}`);
+      const res = await axios.put(`http://localhost:8080/user/set-role/${userId}/${role}`);
       setMessage(res.data);
     } catch (err) {
       setError("Failed to update role. Please make sure the user ID and role are valid.");
@@ -24,7 +24,7 @@ const SetUserRole = () => {
   };
   useEffect(() =>{
         axios
-        .get(`https://landadministration-production.up.railway.app/user/get-role`)
+        .get(`http://localhost:8080/user/get-role`)
         .then((response) => {
           setCurrRole(response.data);
           setError("");

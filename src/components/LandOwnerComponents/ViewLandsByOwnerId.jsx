@@ -63,7 +63,7 @@ const ViewLandsByOwnerId = () => {
       setErrorMsg('');
 
       // Fetch lands
-      const landsRes = await axios.get(`https://landadministration-production.up.railway.app/land-owner/lands/${ownerId}`);
+      const landsRes = await axios.get(`http://localhost:8080/land-owner/lands/${ownerId}`);
       const fetchedLands = Array.isArray(landsRes.data?.content) ? landsRes.data.content : [];
 
       setLands(fetchedLands);
@@ -74,7 +74,7 @@ const ViewLandsByOwnerId = () => {
         setOwnerInfo(null);
       } else {
         // Fetch owner details
-        const ownerRes = await axios.get(`https://landadministration-production.up.railway.app/land-owner/${ownerId}`);
+        const ownerRes = await axios.get(`http://localhost:8080/land-owner/${ownerId}`);
         setOwnerInfo(ownerRes.data);
       }
 

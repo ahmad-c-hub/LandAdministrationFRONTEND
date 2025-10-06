@@ -22,7 +22,7 @@ const Profile = () => {
   const fetchLogs = async (pageNumber) => {
     try {
       const res = await axios.get(
-        `https://landadministration-production.up.railway.app/user-log/current-user?page=${pageNumber}&size=10`
+        `http://localhost:8080/user-log/current-user?page=${pageNumber}&size=10`
       );
       setLogs(res.data.content);
       setTotalPages(res.data.totalPages);
@@ -37,14 +37,14 @@ const Profile = () => {
 
   const fetchRole = () => {
     axios
-      .get("https://landadministration-production.up.railway.app/user/get-role")
+      .get("http://localhost:8080/user/get-role")
       .then((res) => setRole(res.data))
       .catch((err) => console.error("Failed to get role:", err));
   };
 
   const fetchCountry = () => {
     axios
-      .get("https://landadministration-production.up.railway.app/user/get-country")
+      .get("http://localhost:8080/user/get-country")
       .then((res) => setCountry(res.data))
       .catch((err) => console.error("Failed to get country:", err));
   };
@@ -79,7 +79,7 @@ const Profile = () => {
     }
     try {
       await axios.put(
-        "https://landadministration-production.up.railway.app/user/update-current-user",
+        "http://localhost:8080/user/update-current-user",
         { username: newUsername.trim() }
       );
       setSuccess("✅ Username changed successfully. Redirecting to login...");
@@ -108,7 +108,7 @@ const Profile = () => {
     }
     try {
       await axios.put(
-        "https://landadministration-production.up.railway.app/user/change-password",
+        "http://localhost:8080/user/change-password",
         {
           oldPassword,
           newPassword,

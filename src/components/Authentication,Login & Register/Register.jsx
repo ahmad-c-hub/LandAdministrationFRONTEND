@@ -38,7 +38,7 @@ const Register = () => {
     }
 
     try {
-      await axios.post("https://landadministration-production.up.railway.app/user/register", {
+      await axios.post("http://localhost:8080/user/register", {
         username: formData.username,
         password: formData.password,
         country: formData.country,

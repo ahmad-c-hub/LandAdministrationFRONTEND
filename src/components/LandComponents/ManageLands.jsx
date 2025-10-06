@@ -8,7 +8,7 @@ const ManageLands = () => {
 
   useEffect(() =>{
         axios
-        .get(`https://landadministration-production.up.railway.app/user/get-role`)
+        .get(`http://localhost:8080/user/get-role`)
         .then((response) => {
           setRole(response.data);
         })

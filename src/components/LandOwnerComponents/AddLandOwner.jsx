@@ -16,7 +16,7 @@ const AddLandOwner = () => {
 
   useEffect(() => {
     axios
-      .get("https://landadministration-production.up.railway.app/user/get-role")
+      .get("http://localhost:8080/user/get-role")
       .then((res) => setRole(res.data))
       .catch((err) => console.error("Failed to get role:", err));
   }, []);
@@ -40,7 +40,7 @@ const AddLandOwner = () => {
 
     try {
       const res = await axios.post(
-        "https://landadministration-production.up.railway.app/land-owner/add",
+        "http://localhost:8080/land-owner/add",
         formData
       );
       setSuccessMessage("✅ Land owner added successfully!");

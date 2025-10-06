@@ -78,7 +78,7 @@ const AddLand = () => {
 
   const handleSave = async () => {
     try {
-      await axios.post("https://landadministration-production.up.railway.app/land/add", {
+      await axios.post("http://localhost:8080/land/add", {
         latitude: parseFloat(latitude),
         longitude: parseFloat(longitude),
         surfaceArea: surfaceArea ? parseFloat(surfaceArea) : 0,

@@ -12,7 +12,7 @@ const DeleteUser = () => {
 
   const fetchUser = async () => {
     try {
-        const res = await axios.get(`https://landadministration-production.up.railway.app/user/get-user/${userId}`);
+        const res = await axios.get(`http://localhost:8080/user/get-user/${userId}`);
         setUser(res.data);
         setErrorMsg("");
         setShowModal(true);
@@ -25,7 +25,7 @@ const DeleteUser = () => {
 
   const deleteUser = async () => {
     try {
-      await axios.delete(`https://landadministration-production.up.railway.app/user/delete/${userId}`);
+      await axios.delete(`http://localhost:8080/user/delete/${userId}`);
       setDeleted(true);
       setShowModal(false);
       setUser(null);

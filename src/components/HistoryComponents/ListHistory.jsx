@@ -25,7 +25,7 @@ const ListHistory = () => {
 
   const fetchHistory = () => {
     axios
-      .get(`https://landadministration-production.up.railway.app/ownership-history/recordss?page=${page}&size=${size}`)
+      .get(`http://localhost:8080/ownership-history/recordss?page=${page}&size=${size}`)
       .then((response) => {
         setHistory(response.data.content);
         setTotalPages(response.data.totalPages);
@@ -35,7 +35,7 @@ const ListHistory = () => {
 
   const fetchRole = () => {
     axios
-      .get("https://landadministration-production.up.railway.app/user/get-role")
+      .get("http://localhost:8080/user/get-role")
       .then((res) => setRole(res.data))
       .catch((err) => console.error("Failed to get role:", err));
   };

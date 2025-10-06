@@ -27,7 +27,7 @@ const ViewLandById = () => {
 
   useEffect(() =>{
         axios
-        .get(`https://landadministration-production.up.railway.app/user/get-role`)
+        .get(`http://localhost:8080/user/get-role`)
         .then((response) => {
           setRole(response.data);
           setError("");
@@ -42,7 +42,7 @@ const ViewLandById = () => {
       return;
     }
     try {
-      const response = await axios.get(`https://landadministration-production.up.railway.app/land/get/${landId}`);
+      const response = await axios.get(`http://localhost:8080/land/get/${landId}`);
       setLand(response.data);
       setOriginalUsageType(response.data.usageType);
       setError("");
@@ -58,7 +58,7 @@ const ViewLandById = () => {
 
   const handleEditSubmit = async () => {
     try {
-      await axios.put(`https://landadministration-production.up.railway.app/land/update-usage-type/${land.id}/${land.usageType}`, land);
+      await axios.put(`http://localhost:8080/land/update-usage-type/${land.id}/${land.usageType}`, land);
       setShowEditModal(false);
       setEditMessage(`✅ Land with ID ${land.id} updated successfully.`);
       setOriginalUsageType(land.usageType);
@@ -81,7 +81,7 @@ const ViewLandById = () => {
 
   const deleteLand = async () => {
     try {
-      await axios.delete(`https://landadministration-production.up.railway.app/land/delete/${land.id}`);
+      await axios.delete(`http://localhost:8080/land/delete/${land.id}`);
       setDeletionMessage(`✅ Land with ID ${land.id} deleted successfully.`);
       setLand(null);
       setShowConfirmModal(false);
@@ -109,7 +109,7 @@ const ViewLandById = () => {
     }
 
     const response = await axios.get(
-      `https://landadministration-production.up.railway.app/land-owner/${newOwnerId}`
+      `http://localhost:8080/land-owner/${newOwnerId}`
     );
     setNewOwnerDetails(response.data);
     setNewOwnerError("");
@@ -123,7 +123,7 @@ const ViewLandById = () => {
 
   const confirmTransfer = async () => {
     try {
-      await axios.post(`https://landadministration-production.up.railway.app/land-owner/${land.id}/assign-owner/${newOwnerId}`);
+      await axios.post(`http://localhost:8080/land-owner/${land.id}/assign-owner/${newOwnerId}`);
       setShowTransferModal(false);
       setTransferMessage(`✅ Ownership of land ${land.id} transferred to ${newOwnerDetails.fullName}.`);
       setNewOwnerId("");
@@ -138,7 +138,7 @@ const ViewLandById = () => {
 
   const unassignOwner = async () => {
     try {
-      await axios.post(`https://landadministration-production.up.railway.app/land/unassign-owner/${land.id}`);
+      await axios.post(`http://localhost:8080/land/unassign-owner/${land.id}`);
       setShowUnassignConfirmModal(false);
       setTransferMessage(`✅ Owner unassigned successfully from land ID ${land.id}.`);
       setNewOwnerId("");

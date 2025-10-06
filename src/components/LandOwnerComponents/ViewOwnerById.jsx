@@ -18,7 +18,7 @@ const ViewOwnerById = () => {
 
   useEffect(() =>{
         axios
-        .get(`https://landadministration-production.up.railway.app/user/get-role`)
+        .get(`http://localhost:8080/user/get-role`)
         .then((response) => {
           setRole(response.data);
         })
@@ -32,7 +32,7 @@ const ViewOwnerById = () => {
     }
 
     try {
-      const response = await axios.get(`https://landadministration-production.up.railway.app/land-owner/${ownerId}`);
+      const response = await axios.get(`http://localhost:8080/land-owner/${ownerId}`);
       setLandOwner(response.data);
       setErrorMsg('');
       setSuccessMsg('');
@@ -61,7 +61,7 @@ const ViewOwnerById = () => {
 
     try {
       await axios.put(
-        `https://landadministration-production.up.railway.app/land-owner/update-owner?id=${landOwner.id}`,
+        `http://localhost:8080/land-owner/update-owner?id=${landOwner.id}`,
         updatedOwner
       );
       setEditSuccess('✅ Owner updated successfully.');
@@ -77,7 +77,7 @@ const ViewOwnerById = () => {
   const handleDelete = async () => {
     try {
       await axios.delete(
-        `https://landadministration-production.up.railway.app/land-owner/delete-owner?id=${landOwner.id}`
+        `http://localhost:8080/land-owner/delete-owner?id=${landOwner.id}`
       );
       setSuccessMsg(`✅ Owner with ID ${landOwner.id} deleted successfully.`);
       setErrorMsg('');

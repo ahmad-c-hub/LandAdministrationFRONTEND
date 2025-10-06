@@ -25,7 +25,7 @@ const HistoryByLandId = () => {
       return;
     }
 
-    axios.get(`https://landadministration-production.up.railway.app/ownership-history/land?page=${page}&size=${size}&id=${landId}`)
+    axios.get(`http://localhost:8080/ownership-history/land?page=${page}&size=${size}&id=${landId}`)
       .then(response => {
         setHistory(response.data.content);
         setTotalPages(response.data.totalPages);
